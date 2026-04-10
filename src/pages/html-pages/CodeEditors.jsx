@@ -140,7 +140,7 @@ export default function CodeEditors() {
 
                         <PrevNextBtn 
                                 prevPath="/course-overview" 
-                                nextPath="/html-transition"
+                                nextPath="/assignment-guide"
                         />
         </section>
     );

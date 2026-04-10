@@ -49,7 +49,7 @@ export default function HTMLTransition() {
 
 
                         <PrevNextBtn 
-                                prevPath="/editor" 
+                                prevPath="/assignment-guide" 
                                 nextPath="/html-structure"
                         />
         </section>

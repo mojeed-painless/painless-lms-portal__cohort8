@@ -182,10 +182,8 @@ function App() {
                 <Route path="/css_formatting" element={<TextFormatting />} />
                 <Route path="/css_transform" element={<Transform />} />
                 <Route path="/css_transition" element={<Transition />} />
-              </Route>
 
-              {/* JavaScript Content - Requires jsAccess and release schedule */}
-              <Route element={<CourseAccessRoute courseType="js" />}>
+                {/* JS Content */}
                 <Route path="/js-transition" element={<JSTransition />} />
                 <Route path="/js-intro" element={<JavascriptIntro />} />
                 <Route path="/js-linking" element={<LinkingJavascript />} />
@@ -205,6 +203,11 @@ function App() {
                 <Route path="/js-string-conversion" element={<StringConversion />} />
                 <Route path="/js-number-conversion" element={<NumberConversion />} />
                 <Route path="/js-boolean-conversion" element={<BooleanConversion />} />
+              </Route>
+
+              {/* JavaScript Content - Requires jsAccess and release schedule */}
+              <Route element={<CourseAccessRoute courseType="js" />}>
+
               </Route>
             </Route>
 
