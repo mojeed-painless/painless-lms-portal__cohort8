@@ -6,20 +6,28 @@ import { isPathUnlocked } from '../../utils/htmlCourseUnlockConfig';
 
 /**
  * Route guard for course content access.
- * - HTML content: Controlled by server-stored release day
- * - JS/React content: Requires specific access flags
- * - Admins bypass all restrictions
+ * - HTML/CSS content: Requires htmlAccess and release schedule
+ * - JavaScript content: Requires jsAccess and release schedule
+ * - React content: Requires reactAccess and release schedule
+ * - Admins bypass course access flags but still respect release schedule
  */
 const CourseAccessRoute = ({ courseType }) => {
   const { user, isLoading } = useAuth();
   const location = useLocation();
   const [releaseDay, setReleaseDay] = useState(0);
-  const [isReleaseLoading, setIsReleaseLoading] = useState(courseType === 'html');
+  const [isReleaseLoading, setIsReleaseLoading] = useState(true);
 
-  // Fetch release day from server for HTML content
+  const getAccessField = (type) => {
+    if (type === 'html') return 'htmlAccess';
+    if (type === 'js') return 'jsAccess';
+    if (type === 'react') return 'reactAccess';
+    return 'htmlAccess';
+  };
+
+  const accessField = getAccessField(courseType);
+
+  // Fetch release day from server for gated course content
   useEffect(() => {
-    if (courseType !== 'html') return;
-
     const fetchReleaseDay = async () => {
       try {
         const response = await fetch(`${API_BASE_URL}/api/config/html-release-day`);
@@ -35,7 +43,7 @@ const CourseAccessRoute = ({ courseType }) => {
     };
 
     fetchReleaseDay();
-  }, [courseType]);
+  }, []);
 
   // Show loading while auth or release day is loading
   if (isLoading || isReleaseLoading) {
@@ -50,23 +58,15 @@ const CourseAccessRoute = ({ courseType }) => {
     );
   }
 
-  // Admins have full access to non-HTML content, but HTML content is still restricted by release day
-  if (user?.role === 'admin' && courseType !== 'html') {
-    return <Outlet />;
+  const isAdmin = user?.role === 'admin';
+  const hasCourseAccess = Boolean(user?.[accessField]);
+
+  if (!isAdmin && !hasCourseAccess) {
+    return <Navigate to="/no-access" state={{ from: location, reason: 'course_locked' }} replace />;
   }
 
-  // Check course-specific access
-  if (courseType === 'html') {
-    // HTML access is controlled by release day only
-    if (!isPathUnlocked(location.pathname, releaseDay)) {
-      return <Navigate to="/no-access" state={{ from: location, reason: 'content_locked' }} replace />;
-    }
-  } else {
-    // JS and React require specific access flags
-    const accessField = courseType === 'js' ? 'jsAccess' : 'reactAccess';
-    if (!user?.[accessField]) {
-      return <Navigate to="/no-access" state={{ from: location, reason: 'course_locked' }} replace />;
-    }
+  if (!isPathUnlocked(location.pathname, releaseDay)) {
+    return <Navigate to="/no-access" state={{ from: location, reason: 'content_locked' }} replace />;
   }
 
   return <Outlet />;

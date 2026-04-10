@@ -135,7 +135,7 @@ function App() {
               <Route path="/assignment-guide" element={<AssignmentGuide />} />
 
               
-              {/* HTML, CSS, and JavaScript Content - Requires 'htmlAccess' */}
+              {/* HTML and CSS Content - Requires htmlAccess and release schedule */}
               <Route element={<CourseAccessRoute courseType="html" />}>
                 {/* HTML Content */}
                 <Route path="/html-transition" element={<HTMLTransition />} />
@@ -182,8 +182,10 @@ function App() {
                 <Route path="/css_formatting" element={<TextFormatting />} />
                 <Route path="/css_transform" element={<Transform />} />
                 <Route path="/css_transition" element={<Transition />} />
+              </Route>
 
-                {/* JavaScript Content */}
+              {/* JavaScript Content - Requires jsAccess and release schedule */}
+              <Route element={<CourseAccessRoute courseType="js" />}>
                 <Route path="/js-transition" element={<JSTransition />} />
                 <Route path="/js-intro" element={<JavascriptIntro />} />
                 <Route path="/js-linking" element={<LinkingJavascript />} />
