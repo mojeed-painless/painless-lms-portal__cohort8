@@ -323,8 +323,25 @@
     color: rgb(199, 31, 149);
 }
 
-.attempted-topic-quiz__score {
+.attempted-topic-quiz__score-title, .attempted-topic-quiz__score {
     text-align: right;
+}
+
+.attempted-topic-quiz__score {
+    border: 1px solid black;
+    padding: 0;
+    border-radius: 0.4rem;
+    overflow: hidden;
+}
+
+.attempted-topic-quiz__score small {
+    /* margin: 0; */
+    padding: 0.5rem;
+}
+
+.attempted-topic-quiz__score-max {
+    background: #4CAF50;
+    font-weight: 800;
 }
 
 .attempted-topic-quiz__total {
@@ -337,6 +354,23 @@
     background: radial-gradient(#280a48, #20043d);
     color:rgb(31, 199, 95);
     border-radius: 0 0 0.7rem 0.7rem
+}
+
+.attempted-topic-quiz__total-score {
+    border: 1px solid white;
+    padding: 0;
+    border-radius: 0.4rem;
+    overflow: hidden;
+}
+
+.attempted-topic-quiz__total-score span {
+    padding: 0.5rem;
+}
+
+.attempted-topic-quiz__total-score-max {
+    background: white;
+    font-weight: 800;
+    color: black;
 }
 
 /* Attempted view styles */

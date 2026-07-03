@@ -101,7 +101,7 @@ const MainLayout = () => {
          <div className='sidebar-body'>
             {(listTexts.map(item => (
               <Link to={item.to} key={item.id} className="sidebar__links" onClick={() => setIsHiden(prev => !prev)}>
-                <span><item.icon /></span>
+                <span><item.icon size={10}/></span>
                 <span>{item.text}</span>
               </Link>
             )))}

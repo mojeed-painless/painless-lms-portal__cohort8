@@ -287,8 +287,8 @@ export default function TopicQuiz({currentCategory, currentTopic, onSelect}) {
                 </>
               ) : (
                 <div style={{ padding: '28px', textAlign: 'center' }}>
-                  <p style={{ marginBottom: '12px' }}>Ready to start the quiz for <strong>{topic}</strong>?</p>
-                  <button className="take-quiz-btn" onClick={() => setShowStartConfirm(true)}>Take Quiz</button>
+                  <p style={{ marginBottom: '12px' }}>Ready to start the checkpoint for <strong>{topic}</strong>?</p>
+                  <button className="take-quiz-btn" onClick={() => setShowStartConfirm(true)}>Start Checkpoint</button>
                 </div>
               )
             ) : (
@@ -325,7 +325,7 @@ export default function TopicQuiz({currentCategory, currentTopic, onSelect}) {
 
               {activeQuestion < questions.length ? 
                 <button onClick={() => setActiveQuestion(prev => prev + 1)}>Next <span><MoveRight size={16} /></span></button> :
-                <button onClick={() => setShowFinishConfirm(true)}>Finish Quiz</button>
+                <button onClick={() => setShowFinishConfirm(true)}>Finish Checkpoint</button>
               }
             </div>}
 
@@ -333,7 +333,7 @@ export default function TopicQuiz({currentCategory, currentTopic, onSelect}) {
             {showStartConfirm && (
               <div className="modal-backdrop">
                 <div className="modal-panel">
-                  <h3>Start Quiz</h3>
+                  <h3>Start Checkpoint</h3>
                   <p>Are you sure you are ready to take the quiz? Once you start the timer will begin.</p>
                   <div className="modal-actions">
                     <button className="modal-btn confirm" onClick={handleStartConfirm}>Yes, Start</button>
@@ -347,7 +347,7 @@ export default function TopicQuiz({currentCategory, currentTopic, onSelect}) {
             {showFinishConfirm && (
               <div className="modal-backdrop">
                 <div className="modal-panel">
-                  <h3>Submit Quiz</h3>
+                  <h3>Submit Checkpoint</h3>
                   <p>Are you sure you want to submit the quiz? You won't be able to change answers after submitting.</p>
                   <div className="modal-actions">
                     <button className="modal-btn confirm" onClick={handleFinishConfirm}>Yes, Submit</button>
@@ -362,7 +362,7 @@ export default function TopicQuiz({currentCategory, currentTopic, onSelect}) {
               <div className="modal-backdrop">
                 <div className="modal-panel">
                   <h3>Congratulations</h3>
-                  <p>You just completed your quiz.</p>
+                  <p>You just completed your checkpoint.</p>
                   <div style={{ fontWeight: 700 }}>
                     <p>Score: {resultData.score} / {resultData.total}</p>
                     <p>Time taken: {formatTime(resultData.timeTaken)}</p>
@@ -434,21 +434,27 @@ export function AttemptedTopicQuiz() {
           <li>
             <p>Topic</p>
             {/* <span className="attempted-topic-quiz__date">Date attempted</span> */}
-            <span className="attempted-topic-quiz__score">Score</span>
+            <span className="attempted-topic-quiz__score-title">Score</span>
           </li>
 
           {attempts.map((a, idx) => (
             <li key={idx}>
               <p>{a.topic}</p>
               {/* <span className="attempted-topic-quiz__date">{new Date(a.attemptedAt || a.date || a.createdAt).toLocaleString()}</span> */}
-              <span className="attempted-topic-quiz__score">{a.score} / {a.total}</span>
+              <span className="attempted-topic-quiz__score">
+                <small>{a.score} XP</small>
+                <small className="attempted-topic-quiz__score-max">{a.total} XP</small>
+              </span>
             </li>
           ))}
         </ol>
 
         <div className="attempted-topic-quiz__total">
           <p>Total</p>
-          <span className="attempted-topic-quiz__total-score">{totalScore} / {totalPossible}</span>
+          <span className="attempted-topic-quiz__total-score">
+            <span>{totalScore} XP</span> 
+            <span className='attempted-topic-quiz__total-score-max'>{totalPossible} XP</span>
+          </span>
         </div>
       </div>
     </div>

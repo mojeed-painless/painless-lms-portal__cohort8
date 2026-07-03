@@ -330,12 +330,12 @@ export default function QuizScreen() {
         <div className="transcript__header-title">
           <h1>
             <span><Sparkles size={25}/></span> 
-            {isActive === 'daily quiz' ? 'Daily' : 'Topic'} Quiz Center
+            {isActive === 'daily quiz' ? 'Daily Quiz' : 'Checkpoint'}
           </h1>
           <p className="transcript__header-subtitle">
             {
               isActive === 'daily quiz' ? 'Challenge others to climb up the leaderboard' : 
-              'Check out list of topic base quizzes you already attempted'}
+              'Check out list of checkpoints you already attempted'}
           </p>
         </div>
         {/* Submission toast / modal */}
@@ -369,7 +369,7 @@ export default function QuizScreen() {
             className={isActive === 'topic quiz' ? 'active-quiz' : ''} 
             onClick={() => setIsActive('topic quiz')}
           >
-            <Sparkle size={18} /> Topic Quiz
+            <Sparkle size={18} /> Checkpoint
           </button>
         </div>
       </div>

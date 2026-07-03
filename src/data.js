@@ -3,12 +3,14 @@ import { MdOutlineMenuBook, MdOutlineAssignment } from "react-icons/md";
 import { LuSparkles, LuBrainCircuit, LuCrown } from "react-icons/lu";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FaDoorOpen, FaCode, FaPaintbrush, FaRegFileLines } from "react-icons/fa6";
+import { FaWandMagicSparkles } from "react-icons/fa6";
 import { FiPenTool } from "react-icons/fi";
 import {
     Award,
     BadgeCheck,
     NotepadText,
     Sparkles,
+    WandSparkles,
     Atom,
     PenTool,
     CodeXml,
@@ -25,8 +27,9 @@ import {
 export const listTexts = [
   { id: 1, text: 'Dashboard', icon: FiHome, to: '/' },
   { id: 2, text: 'Course Contents', icon: MdOutlineMenuBook, to: '/welcome' },
-  { id: 3, text: 'Assignments', icon: MdOutlineAssignment, to: '/assignments' },
-  { id: 4, text: 'Quizzes', icon: LuSparkles, to: '/quizzes' },
+  { id: 3, text: 'Quests', icon: MdOutlineAssignment, to: '/assignments' },
+  { id: 8, text: 'Checkpoints', icon: FaWandMagicSparkles, to: '/checkpoints' },
+  { id: 4, text: 'Daily Quiz', icon: LuSparkles, to: '/quizzes' },
   { id: 5, text: 'Leaderboard', icon: LuCrown, to: '/leaderboard' },
   { id: 6, text: 'Transcript', icon: FaRegFileLines, to: '/transcript' },
   { id: 7, text: 'Settings', icon: IoSettingsOutline, to: '/settings' },
