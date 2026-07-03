@@ -97,6 +97,16 @@ import StringConversion from './pages/js-pages/StringConversion';
 import NumberConversion from './pages/js-pages/NumberConversion';
 import BooleanConversion from './pages/js-pages/BooleanConversion';
 
+import BasicOperators from './pages/js-pages/BasicOperators';
+import MathsOperators from './pages/js-pages/MathsOperators';
+import StringConcatenation from './pages/js-pages/StringConcatenation';
+import UnaryConversion from './pages/js-pages/UnaryConversion';
+import AssignmentOperator from './pages/js-pages/AssignmentOperator';
+import IncrementDecrement from './pages/js-pages/IncrementDecrement';
+import NumberComparison from './pages/js-pages/NumberComparison';
+import StringComparison from './pages/js-pages/StringComparison';
+import MixedComparison from './pages/js-pages/MixedComparison';
+
 import LoadingAnimation from './components/common/LoadingAnimation';
 
 
@@ -203,6 +213,15 @@ function App() {
                 <Route path="/js-string-conversion" element={<StringConversion />} />
                 <Route path="/js-number-conversion" element={<NumberConversion />} />
                 <Route path="/js-boolean-conversion" element={<BooleanConversion />} />
+                <Route path="/js-basic-operators" element={<BasicOperators />} />
+                <Route path="/js-maths-operators" element={<MathsOperators />} />
+                <Route path="/js-string-concatenation" element={<StringConcatenation />} />
+                <Route path="/js-unary-conversion" element={<UnaryConversion />} />
+                <Route path="/js-assignment-operator" element={<AssignmentOperator />} />
+                <Route path="/js-increment-decrement" element={<IncrementDecrement />} />
+                <Route path="/js-number-comparison" element={<NumberComparison />} />
+                <Route path="/js-string-comparison" element={<StringComparison />} />
+                <Route path="/js-mixed-comparison" element={<MixedComparison />} />
               </Route>
 
               {/* JavaScript Content - Requires jsAccess and release schedule */}
