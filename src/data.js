@@ -204,7 +204,7 @@ export const topics = [
 
             {name: 'Basic Operators', path: '/js-basic-operators'},
             {name: 'Math Operators', path: '/js-maths-operators'},
-            {name: 'Sting Concatenation', path: '/js-string-concatenation'},
+            {name: 'String Concatenation', path: '/js-string-concatenation'},
             {name: 'Unary Conversion', path: '/js-unary-conversion'},
             {name: 'Assignment Operator', path: '/js-assignment-operator'},
             {name: 'Increment Decrement', path: '/js-increment-decrement'},
