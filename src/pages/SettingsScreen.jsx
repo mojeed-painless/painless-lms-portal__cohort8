@@ -92,7 +92,7 @@ export default function SettingsScreen() {
         </div>
 
         <div className="days__btn">
-          {Array.from({ length: 29 }, (_, i) => i + 1).map((day) => {
+          {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => {
             const isActive = day === currentReleaseDay;
             const isUnlocked = day <= currentReleaseDay;
             return (
