@@ -24,7 +24,7 @@ export default function BooleanConversion() {
 
             <PrevNextBtn 
                 prevPath="/js-number-conversion" 
-                nextPath=""
+                nextPath="/js-basic-operators"
             />
         </section>
     );

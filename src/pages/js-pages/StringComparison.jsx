@@ -17,14 +17,14 @@ export default function StringComparison() {
                     
                         <VideoBox 
                             title='String Comparison'
-                            code=''
+                            code='Cn1nqFXu7KE'
                         />
                 </div>
             </section>
 
             <PrevNextBtn 
-                prevPath="" 
-                nextPath=""
+                prevPath="/js-number-comparison" 
+                nextPath="/js-mixed-comparison"
             />
         </section>
     );

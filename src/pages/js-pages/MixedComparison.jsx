@@ -17,13 +17,13 @@ export default function MixedComparison() {
                     
                         <VideoBox 
                             title='Mixed Comparison'
-                            code=''
+                            code='T6Rvf91ZI0o'
                         />
                 </div>
             </section>
 
             <PrevNextBtn 
-                prevPath="" 
+                prevPath="/js-string-comparison" 
                 nextPath=""
             />
         </section>

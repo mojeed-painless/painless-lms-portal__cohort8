@@ -23,8 +23,8 @@ export default function BasicOperators() {
             </section>
 
             <PrevNextBtn 
-                prevPath="" 
-                nextPath=""
+                prevPath="/js-boolean-conversion" 
+                nextPath="/js-maths-operators"
             />
         </section>
     );

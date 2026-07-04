@@ -17,14 +17,14 @@ export default function StringConcatenation() {
                     
                         <VideoBox 
                             title='String Concatenation'
-                            code=''
+                            code='GgYdGlB5j-Y'
                         />
                 </div>
             </section>
 
             <PrevNextBtn 
-                prevPath="" 
-                nextPath=""
+                prevPath="/js-maths-operators" 
+                nextPath="/js-unary-conversion"
             />
         </section>
     );

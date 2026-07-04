@@ -17,14 +17,14 @@ export default function AssignmentOperator() {
                     
                         <VideoBox 
                             title='Assignment Operator'
-                            code=''
+                            code='UOkYL3gGAb4'
                         />
                 </div>
             </section>
 
             <PrevNextBtn 
-                prevPath="" 
-                nextPath=""
+                prevPath="/js-unary-conversion" 
+                nextPath="/js-increment-decrement"
             />
         </section>
     );

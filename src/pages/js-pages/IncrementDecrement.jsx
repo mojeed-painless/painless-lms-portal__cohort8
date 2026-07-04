@@ -17,14 +17,14 @@ export default function IncrementDecrement() {
                     
                         <VideoBox 
                             title='Increment Decrement'
-                            code=''
+                            code='_rNHYqdFFsI'
                         />
                 </div>
             </section>
 
             <PrevNextBtn 
-                prevPath="" 
-                nextPath=""
+                prevPath="/js-assignment-operator" 
+                nextPath="/js-number-comparison"
             />
         </section>
     );

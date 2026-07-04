@@ -3,12 +3,12 @@ import '../../assets/styles/course-content.css';
 import PrevNextBtn from '../../components/common/PrevNextBtn';
 import VideoBox from '../../components/common/VideoBox';
 
-export default function AssignmentOperator() {
+export default function NumberComparison() {
 
     return (
         <section className="course-content">
             <div className="course-content__header">
-                <h1>Assignment Operator</h1>
+                <h1>Number Comparison</h1>
                 <p>Javascript</p>
             </div>
 
@@ -16,15 +16,15 @@ export default function AssignmentOperator() {
                 <div className="course-content__container">
                     
                         <VideoBox 
-                            title='Assignment Operator'
-                            code=''
+                            title='Number Comparison'
+                            code='CVg8jViGwKE'
                         />
                 </div>
             </section>
 
             <PrevNextBtn 
-                prevPath="" 
-                nextPath=""
+                prevPath="/js-increment-decrement" 
+                nextPath="/js-string-comparison"
             />
         </section>
     );

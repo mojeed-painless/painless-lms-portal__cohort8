@@ -23,8 +23,8 @@ export default function MathsOperators() {
             </section>
 
             <PrevNextBtn 
-                prevPath="" 
-                nextPath=""
+                prevPath="/js-basic-operators" 
+                nextPath="/js-string-concatenation"
             />
         </section>
     );

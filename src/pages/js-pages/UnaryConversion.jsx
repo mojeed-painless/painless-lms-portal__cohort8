@@ -17,14 +17,14 @@ export default function UnaryConversion() {
                     
                         <VideoBox 
                             title='Unary Conversion'
-                            code=''
+                            code='ydrj1fjRe9g'
                         />
                 </div>
             </section>
 
             <PrevNextBtn 
-                prevPath="" 
-                nextPath=""
+                prevPath="/js-string-concatenation" 
+                nextPath="/js-assignment-operator"
             />
         </section>
     );
