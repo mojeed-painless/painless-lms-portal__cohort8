@@ -203,8 +203,8 @@ export const topics = [
             {name: 'Boolean Conversion', path: '/js-boolean-conversion'},
 
             {name: 'Basic Operators', path: '/js-basic-operators'},
-            {name: 'Math Operators', path: '/js-math-operators'},
-            {name: 'Sting Concatenation', path: '/js-string-concatenation'},
+            {name: 'Math Operators', path: '/js-maths-operators'},
+            {name: 'String Concatenation', path: '/js-string-concatenation'},
             {name: 'Unary Conversion', path: '/js-unary-conversion'},
             {name: 'Assignment Operator', path: '/js-assignment-operator'},
             {name: 'Increment Decrement', path: '/js-increment-decrement'},

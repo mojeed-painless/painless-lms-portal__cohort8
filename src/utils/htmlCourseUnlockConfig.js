@@ -63,6 +63,15 @@ export const htmlCourseRouteOrder = [
   '/js-string-conversion',
   '/js-number-conversion',
   '/js-boolean-conversion',
+  '/js-basic-operators',
+  '/js-maths-operators',
+  '/js-string-concatenation',
+  '/js-unary-conversion',
+  '/js-assignment-operator',
+  '/js-increment-decrement',
+  '/js-number-comparison',
+  '/js-string-comparison',
+  '/js-mixed-comparison',
 ];
 
 // Number of routes unlocked each day
@@ -96,6 +105,8 @@ export const dayContentMap = {
   27: 4,
   28: 4,
   29: 4,
+  30: 4,
+  31: 5,
 };
 
 // Calculate total unlocked routes up to given day

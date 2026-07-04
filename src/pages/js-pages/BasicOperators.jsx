@@ -17,7 +17,11 @@ export default function BasicOperators() {
                     
                         <VideoBox 
                             title='Basic Operators'
+<<<<<<< HEAD
                             code='-f4tiVJul2A?si=Y7uAPiGrkqBtO_kM'
+=======
+                            code='-f4tiVJul2A'
+>>>>>>> 1f23f03d6b036204e3ab812ced824cbbff3bbebd
                         />
                 </div>
             </section>

@@ -32,7 +32,7 @@ export default function NoAccess() {
 
                             <h1>Oops!</h1>
 
-                            <h2>Calm down! Study and perfect the available contents. Others will be releaes shortly</h2>
+                            <h2>Calm down! Study and perfect the available contents. Others will be released shortly</h2>
                             
                             {/* <p>
                                 This content is reserved for paid members. Upgrade your 
