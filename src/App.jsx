@@ -123,6 +123,9 @@ function App() {
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/register" element={<RegisterScreen />} />
           
+          {/* <Route element={<MainLayout />}>
+            <Route path='/role' element={<AssignmentScreen />} />
+          </Route> */}
           
           <Route path="/" element={<PrivateRoute />}>
 

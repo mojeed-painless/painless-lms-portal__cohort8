@@ -16,7 +16,7 @@ const LogoutButton = ( { className, isCollapsed } ) => {
   return (
     <button onClick={handleLogout} className={`logout-btn ${className}`}>
       <span><TbLogout2 /></span>
-      {!isCollapsed && <span>Logout</span>}
+      <span>Logout</span>
     </button>
   );
 };

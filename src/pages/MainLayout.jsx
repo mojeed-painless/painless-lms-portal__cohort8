@@ -75,7 +75,8 @@ const MainLayout = () => {
          {(listTexts.map(({ id, to, icon: Icon, text }) => (
             <Link to={to} key={id} className={`sidebar__links ${selectedLink === text ? "active-sidebar__links" : ''}`} onClick={() => handleClickedLink(text)}>
               <span><Icon /></span>
-              {!isCollapsed && <span>{text}</span>}
+              {/* {!isCollapsed && <span>{text}</span>} */}
+              <span>{text}</span>
             </Link>
           )))}
           <LogoutButton 
@@ -101,7 +102,7 @@ const MainLayout = () => {
          <div className='sidebar-body'>
             {(listTexts.map(item => (
               <Link to={item.to} key={item.id} className="sidebar__links" onClick={() => setIsHiden(prev => !prev)}>
-                <span><item.icon size={10}/></span>
+                <span><item.icon/></span>
                 <span>{item.text}</span>
               </Link>
             )))}

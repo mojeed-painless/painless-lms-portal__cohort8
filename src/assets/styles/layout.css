@@ -69,6 +69,7 @@ aside {
     display: flex;
     flex-direction: column;
     gap: 1.7rem;
+    overflow-x: hidden;
     transition: all 400ms ease;
 }
 
@@ -79,7 +80,7 @@ aside > :last-child {
 .collapsed-sidebar {
     width: 4rem;
     padding-inline: 1rem;
-    align-items: center;
+    /* align-items: center; */
     transition: all 400ms ease;
 }
 
@@ -111,6 +112,17 @@ aside > :last-child {
 .dashboard__logout-btn span:first-child {
     font-size: 1.3rem;
     display: flex;
+}
+
+.sidebar__links span:last-child, 
+.dashboard__logout-btn span:last-child {
+    opacity: 1;
+    transition: all 400ms ease;
+}
+
+.collapsed-sidebar .sidebar__links span:last-child, 
+.collapsed-sidebar .dashboard__logout-btn span:last-child {
+    opacity: 0;
 }
 
 .active-sidebar__links {
