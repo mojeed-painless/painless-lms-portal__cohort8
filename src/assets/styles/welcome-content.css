@@ -143,7 +143,7 @@ header {
 }
 
 .hide.active {
-    max-height: 100rem;
+    max-height: 500rem;
 }
 
 /* Completed Subject Styling */

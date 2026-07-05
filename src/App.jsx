@@ -96,7 +96,6 @@ import BrowserUserInteraction from './pages/js-pages/BrowserUserInteraction';
 import StringConversion from './pages/js-pages/StringConversion';
 import NumberConversion from './pages/js-pages/NumberConversion';
 import BooleanConversion from './pages/js-pages/BooleanConversion';
-
 import BasicOperators from './pages/js-pages/BasicOperators';
 import MathsOperators from './pages/js-pages/MathsOperators';
 import StringConcatenation from './pages/js-pages/StringConcatenation';
@@ -106,6 +105,41 @@ import IncrementDecrement from './pages/js-pages/IncrementDecrement';
 import NumberComparison from './pages/js-pages/NumberComparison';
 import StringComparison from './pages/js-pages/StringComparison';
 import MixedComparison from './pages/js-pages/MixedComparison';
+
+import OrOperator from './pages/js-pages/OrOperator';
+import AndOperator from './pages/js-pages/AndOperator';
+import NotOperator from './pages/js-pages/NotOperator';
+import NullishOperator from './pages/js-pages/NullishOperator';
+import IfStatement from './pages/js-pages/IfStatement';
+import ElseifStatement from './pages/js-pages/ElseifStatement';
+import SwitchStatement from './pages/js-pages/SwitchStatement';
+import WhileLoop from './pages/js-pages/WhileLoop';
+import ForLoop from './pages/js-pages/ForLoop';
+import BreakingLoop from './pages/js-pages/BreakingLoop';
+import ContinueLoop from './pages/js-pages/ContinueLoop';
+import FunctionDeclaration from './pages/js-pages/FunctionDeclaration';
+import LocalGlobalVariables from './pages/js-pages/LocalGlobalVariables';
+import FunctionParameters from './pages/js-pages/FunctionParameters';
+import ReturnFunction from './pages/js-pages/ReturnFunction';
+import NamingFunctions from './pages/js-pages/NamingFunctions';
+import FunctionExpression from './pages/js-pages/FunctionExpression';
+import ArrowFunction from './pages/js-pages/ArrowFunction';
+import Objects from './pages/js-pages/Objects';
+import DotNotation from './pages/js-pages/DotNotation';
+import SquareBracketNotation from './pages/js-pages/SquareBracketNotation';
+import PropertyExistence from './pages/js-pages/PropertyExistence';
+import ObjectLoops from './pages/js-pages/ObjectLoops';
+import ObjectReferencing from './pages/js-pages/ObjectReferencing';
+import CloningObject from './pages/js-pages/CloningObject';
+import ObjectMethods from './pages/js-pages/ObjectMethods';
+import ArrayDeclaration from './pages/js-pages/ArrayDeclaration';
+import ArrayIndexing from './pages/js-pages/ArrayIndexing';
+import ArrayLength from './pages/js-pages/ArrayLength';
+import MultipleTypedArray from './pages/js-pages/MultipleTypedArray';
+import ArrayLoops from './pages/js-pages/ArrayLoops';
+import PopShiftMethods from './pages/js-pages/PopShiftMethods';
+import SliceMethod from './pages/js-pages/SliceMethod';
+import SpliceMethod from './pages/js-pages/SpliceMethod';
 
 import LoadingAnimation from './components/common/LoadingAnimation';
 
@@ -225,6 +259,42 @@ function App() {
                 <Route path="/js-number-comparison" element={<NumberComparison />} />
                 <Route path="/js-string-comparison" element={<StringComparison />} />
                 <Route path="/js-mixed-comparison" element={<MixedComparison />} />
+
+                <Route path="/js-or-operator" element={<OrOperator />} />
+                <Route path="/js-and-operator" element={<AndOperator />} />
+                <Route path="/js-not-operator" element={<NotOperator />} />
+                <Route path="/js-nullish-operator" element={<NullishOperator />} />
+                <Route path="/js-if-statement" element={<IfStatement />} />
+                <Route path="/js-elseif-statement" element={<ElseifStatement />} />
+                <Route path="/js-switch-statement" element={<SwitchStatement />} />
+                <Route path="/js-while-loop" element={<WhileLoop />} />
+                <Route path="/js-for-loop" element={<ForLoop />} />
+                <Route path="/js-breaking-loop" element={<BreakingLoop />} />
+                <Route path="/js-continue-loop" element={<ContinueLoop />} />
+                <Route path="/js-function-declaration" element={<FunctionDeclaration />} />
+                <Route path="/js-local-global-variables" element={<LocalGlobalVariables />} />
+                <Route path="/js-function-parameters" element={<FunctionParameters />} />
+                <Route path="/js-return-function" element={<ReturnFunction />} />
+                <Route path="/js-naming-functions" element={<NamingFunctions />} />
+                <Route path="/js-function-expression" element={<FunctionExpression />} />
+                <Route path="/js-arrow-function" element={<ArrowFunction />} />
+                <Route path="/js-objects" element={<Objects />} />
+                <Route path="/js-dot-notation" element={<DotNotation />} />
+                <Route path="/js-square-bracket-notation" element={<SquareBracketNotation />} />
+                <Route path="/js-property-existence" element={<PropertyExistence />} />
+                <Route path="/js-object-loops" element={<ObjectLoops />} />
+                <Route path="/js-object-referencing" element={<ObjectReferencing />} />
+                <Route path="/js-cloning-object" element={<CloningObject />} />
+                <Route path="/js-object-methods" element={<ObjectMethods />} />
+                <Route path="/js-array-declaration" element={<ArrayDeclaration />} />
+                <Route path="/js-array-indexing" element={<ArrayIndexing />} />
+                <Route path="/js-array-length" element={<ArrayLength />} />
+                <Route path="/js-multiple-typed-array" element={<MultipleTypedArray />} />
+                <Route path="/js-array-loops" element={<ArrayLoops />} />
+                <Route path="/js-pop-shift-methods" element={<PopShiftMethods />} />
+                <Route path="/js-slice-method" element={<SliceMethod />} />
+                <Route path="/js-splice-method" element={<SpliceMethod />} />
+
               </Route>
 
               {/* JavaScript Content - Requires jsAccess and release schedule */}
@@ -245,76 +315,6 @@ function App() {
 
 
           <Route path="/animate" element={<LoadingAnimation />} />
-          
-          {/* <Route element={<MainLayout />}>
-              <Route index element={<RoleBasedDashboard />} />
-              <Route path="/catalog" element={<CourseCatalogScreen />} />
-              <Route path="/course/:courseId" element={<CoursePlayerScreen />} />
-              <Route path="/content" element={<CourseContentScreen />} />
-              <Route path="/assignments" element={<AssignmentScreen />} />
-              <Route path="/quizzes" element={<QuizScreen />} />
-              <Route path="/grades" element={<GradeScreen />} />
-              <Route path="/transcript" element={<TranscriptScreen />} />
-              <Route path="/settings" element={<SettingsScreen />} />
-
-              
-              <Route path="/welcome" element={<WelcomeScreen />} />
-              <Route path="/general-overview" element={<GeneralOverview />} />
-              <Route path="/why" element={<WhyLearn />} />
-              <Route path="/course-overview" element={<CourseOverview />} />
-              <Route path="/editor" element={<CodeEditors />} />
-
-              
-              <Route path="/html-transition" element={<HTMLTransition />} />
-              <Route path="/html-structure" element={<HTMLPageStructure />} />
-              <Route path="/html-list" element={<ListTags />} />
-              <Route path="/html-table" element={<TableTags />} />
-              <Route path="/html-image" element={<Images />} />
-              <Route path="/html-hyperlinks" element={<Hyperlinks />} />
-              <Route path="/html-block-element" element={<InlineBlockElement />} />
-              <Route path="/html-form" element={<Forms />} />
-              <Route path="/html-style" element={<HTMLStyling />} />
-
-              
-              <Route path="/css-transition" element={<CSSTransition />} />
-              <Route path="/css_animation" element={<Animation />} />
-              <Route path="/css_attribute" element={<AttributesSelector />} />
-              <Route path="/css_background" element={<Background />} />
-              <Route path="/css_border" element={<Borders />} />
-              <Route path="/css_boxmodel" element={<BoxModel />} />
-              <Route path="/css_boxshadow" element={<BoxShadow />} />
-              <Route path="/css_color" element={<Colors />} />
-              <Route path="/css_conbinator" element={<Combinators />} />
-              <Route path="/css_introduction" element={<CSSIntroduction />} />
-              <Route path="/css_syntax" element={<CSSSyntax />} />
-              <Route path="/css_display" element={<DisplayLayout />} />
-              <Route path="/css_flexbox" element={<FlexboxLayout />} />
-              <Route path="/css_grid" element={<GridLayout />} />
-              <Route path="/css_width" element={<HeightWidth />} />
-              <Route path="/css_icon" element={<Icons />} />
-              <Route path="/css_insert" element={<InsertingCSS />} />
-              <Route path="/css_links" element={<Links />} />
-              <Route path="/css_lists" element={<Lists />} />
-              <Route path="/css_mediaquery" element={<MediaQuery />} />
-              <Route path="/css_navbar" element={<NavigationBar />} />
-              <Route path="/css_opacity" element={<Opacity />} />
-              <Route path="/css_overflow" element={<OverflowLayout />} />
-              <Route path="/css_portfolio" element={<PortfolioProject />} />
-              <Route path="/css_position" element={<PositionLayout />} />
-              <Route path="/css_pseudoclass" element={<PseudoClasses />} />
-              <Route path="/css_pseudoelement" element={<PseudoElements />} />
-              <Route path="/css_selectors" element={<Selectors />} />
-              <Route path="/css_form" element={<StylingForms />} />
-              <Route path="/css_table" element={<Tables />} />
-              <Route path="/css_formatting" element={<TextFormatting />} />
-              <Route path="/css_transform" element={<Transform />} />
-              <Route path="/css_transition" element={<Transition />} />
-              
-
-
-              
-              <Route path="/js-transition" element={<JSTransition />} />
-          </Route> */}
 
         </Routes>
         
