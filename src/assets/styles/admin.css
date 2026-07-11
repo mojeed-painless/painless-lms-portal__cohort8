@@ -1,5 +1,5 @@
 :root {
-  --bg-color: #f8fafc;
+  --bg-color: rgba(248, 250, 252, 0.1);
   --card-bg: #ffffff;
   --text-main: #1e293b;
   --text-muted: #64748b;
@@ -18,6 +18,8 @@
 
 .admin-container {
   background-color: var(--bg-color);
+  /* background-image: url('../back-tools.jpg');
+  background-size: cover; */
   padding: 2rem;
   height: calc(100dvh - 4.5rem);
   width: 100%;

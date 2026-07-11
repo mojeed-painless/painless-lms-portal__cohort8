@@ -8,7 +8,7 @@ export default function AssignmentGuide() {
     return (
         <section className="course-content">
             <div className="course-content__header">
-                <h1>Assignment Guide</h1>
+                <h1>Quest Guide</h1>
                 <p>Introduction</p>
             </div>
 
@@ -19,7 +19,7 @@ export default function AssignmentGuide() {
 
 
                         <VideoBox 
-                            title='How to Submit Assignments on the Painless LMS Portal'
+                            title='How to Submit Quests on the Painless LMS Portal'
                             code='PHxiwbHnS58?si=KXLJzw7mySktDUCo'
                         />
 

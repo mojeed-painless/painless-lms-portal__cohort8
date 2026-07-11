@@ -24,7 +24,7 @@ export default function MixedComparison() {
 
             <PrevNextBtn 
                 prevPath="/js-string-comparison" 
-                nextPath="/js-or-operator"
+                nextPath="/js-if-statement"
             />
         </section>
     );

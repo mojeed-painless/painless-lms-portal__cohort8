@@ -12,7 +12,7 @@ import {
 export default function NoAccess() {
     return (
             <div className="no-access">
-                <nav>
+                {/* <nav>
                     <div className="nav__left">
                       <div className="nav-logo">
                         <img src={pcalogo} alt="academy logo" />
@@ -20,7 +20,7 @@ export default function NoAccess() {
                     </div>
                         
                     <div className="nav__right"></div>
-                </nav>
+                </nav> */}
 
                 <div className="upgrade-wrapper">
                     

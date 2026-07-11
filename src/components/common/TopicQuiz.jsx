@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import '../../assets/styles/topicQuiz.css';
 import { TopicQuizData } from '../../quizData';
 import {
@@ -11,7 +12,7 @@ import {
 
 import { useAuth } from '../../context/AuthContext';
 
-export default function TopicQuiz({currentCategory, currentTopic, onSelect}) {
+export default function TopicQuiz({ currentTopic, onSelect, autoOpenAttempted = false }) {
 
     const { user } = useAuth();
     const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
@@ -57,7 +58,7 @@ export default function TopicQuiz({currentCategory, currentTopic, onSelect}) {
     };
 
     // fetch whether user already attempted this topic and their answers
-    const fetchAttemptData = async () => {
+    const fetchAttemptData = useCallback(async () => {
       try {
         // check attempts
         const attRes = await fetch(`${API_BASE}/api/quiz-attempts`, {
@@ -66,10 +67,12 @@ export default function TopicQuiz({currentCategory, currentTopic, onSelect}) {
             ...(user && user._id ? { 'x-user-id': user._id } : {}),
           },
         });
+        let found = false;
         if (attRes.ok) {
           const attData = await attRes.json();
-          const found = attData.find(a => a.topic === currentTopic);
+          found = !!attData.find(a => a.topic === currentTopic);
           if (found) setAttempted(true);
+          if (found && autoOpenAttempted) setShowAttempted(true);
         }
 
         // fetch answers for this topic
@@ -91,7 +94,7 @@ export default function TopicQuiz({currentCategory, currentTopic, onSelect}) {
         // ignore — fallback behavior handled elsewhere
         console.error('Failed to fetch attempt data', err);
       }
-    };
+    }, [API_BASE, currentTopic, user, autoOpenAttempted]);
 
     const handleStartConfirm = () => {
       setShowStartConfirm(false);
@@ -198,8 +201,18 @@ export default function TopicQuiz({currentCategory, currentTopic, onSelect}) {
     // load attempt/answers when topic or user changes
     useEffect(() => {
       if (!currentTopic) return;
-      fetchAttemptData();
-    }, [currentTopic, user]);
+
+      const resetAndLoad = async () => {
+        setShowAttempted(false);
+        setAttempted(false);
+        setAnswers({});
+        setAttemptedAnswers({});
+        setShowResult(false);
+        await fetchAttemptData();
+      };
+
+      resetAndLoad();
+    }, [currentTopic, fetchAttemptData]);
 
     const formatTime = (secs) => {
       const m = Math.floor(secs / 60);
@@ -209,7 +222,7 @@ export default function TopicQuiz({currentCategory, currentTopic, onSelect}) {
 
     return (
       <>
-        {TopicQuizData.map(({topic, category, questions}) => (
+        {TopicQuizData.map(({topic, questions}) => (
           topic === currentTopic && 
           <div className="topic-quiz__box" key={topic}>
             <div className="topic-quiz__header">
@@ -231,7 +244,7 @@ export default function TopicQuiz({currentCategory, currentTopic, onSelect}) {
                         if (next) setActiveQuestion(1);
                         return next;
                       });
-                    }}>{showAttempted ? 'Hide my quiz' : 'Show my quiz'}</button>
+                    }}>{showAttempted ? 'Hide Checkpoint' : 'Review Checkpoint'}</button>
                   </>
                   }
 
@@ -382,8 +395,7 @@ export default function TopicQuiz({currentCategory, currentTopic, onSelect}) {
 
 
 
-
-export function AttemptedTopicQuiz() {
+export function AttemptedTopicQuiz({ selectedTopic }) {
   const { user } = useAuth();
   const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
@@ -439,7 +451,14 @@ export function AttemptedTopicQuiz() {
 
           {attempts.map((a, idx) => (
             <li key={idx}>
-              <p>{a.topic}</p>
+              <p>
+                <Link
+                  to={`/checkpoints?topic=${encodeURIComponent(a.topic)}`}
+                  className={`attempted-topic-quiz__topic-link${selectedTopic === a.topic ? ' active' : ''}`}
+                >
+                  {a.topic}
+                </Link>
+              </p>
               {/* <span className="attempted-topic-quiz__date">{new Date(a.attemptedAt || a.date || a.createdAt).toLocaleString()}</span> */}
               <span className="attempted-topic-quiz__score">
                 <small>{a.score} XP</small>

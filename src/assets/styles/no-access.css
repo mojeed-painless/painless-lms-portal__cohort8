@@ -4,14 +4,13 @@
 }
 
 .upgrade-wrapper {
-    margin-top: 4.5rem;
     display: flex;
-    height: calc(100dvh - 4.5rem);
+    height: 100dvh;
 }
 
 .error-column {
   flex: 1;
-  background-color: #fdf0ee; 
+  background-color: rgba(32, 4, 61, 0.2); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,13 +23,13 @@
 .icon-shield {
   width: 100px;
   height: 100px;
-  background-color: rgba(235, 196, 190, 0.4);
+  background-color: rgb(32, 4, 61);
   border-radius: 50%;
   margin: 0 auto 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #e67e73;
+  color: white;
 }
 
 .shield-x {
@@ -39,14 +38,14 @@
 }
 
 .error-content h1 {
-  font-size: 3rem;
-  color: rgb(100, 42, 37);
+  font-size: 2.5rem;
+  color: rgb(122, 106, 105);
   margin-bottom: 10px;
 }
 
 .error-content h2 {
-  font-size: 1.5rem;
-  color: #7d5a57;
+  font-size: 1rem;
+  color: #533e3e;
   margin-bottom: 20px;
 }
 

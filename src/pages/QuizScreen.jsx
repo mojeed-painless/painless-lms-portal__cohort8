@@ -330,14 +330,11 @@ export default function QuizScreen() {
         <div className="transcript__header-title">
           <h1>
             <span><Sparkles size={25}/></span> 
-            {isActive === 'daily quiz' ? 'Daily Quiz' : 'Checkpoint'}
+            Daily Quiz
           </h1>
-          <p className="transcript__header-subtitle">
-            {
-              isActive === 'daily quiz' ? 'Challenge others to climb up the leaderboard' : 
-              'Check out list of checkpoints you already attempted'}
-          </p>
+          <p className="transcript__header-subtitle">Challenge others to climb up the leaderboard</p>
         </div>
+
         {/* Submission toast / modal */}
         {submissionInProgress && (
           <div style={{ position: 'fixed', right: 20, top: 80, background: '#fff3cd', color: '#664d03', padding: '10px 14px', borderRadius: 6, boxShadow: '0 4px 12px rgba(0,0,0,0.08)', zIndex: 1200 }}>
@@ -358,24 +355,8 @@ export default function QuizScreen() {
           </div>
         )}
         
-        <div className="quiz__nav-btn">
-          <button 
-            className={isActive === 'daily quiz' ? 'active-quiz' : ''} 
-            onClick={() => setIsActive('daily quiz')}
-          >
-            <WandSparkles size={18} /> Daily Quiz
-          </button>
-          <button 
-            className={isActive === 'topic quiz' ? 'active-quiz' : ''} 
-            onClick={() => setIsActive('topic quiz')}
-          >
-            <Sparkle size={18} /> Checkpoint
-          </button>
-        </div>
       </div>
 
-
-      {isActive === 'daily quiz' && 
       <div className="daily-quiz__container">
 
         {/* QUIZ COUNTDOWN AND CONTROLS */}
@@ -579,27 +560,19 @@ export default function QuizScreen() {
           <div className="quiz__instruction">
             <h4><span><BadgeInfo/></span>How it works</h4>
             <ol>
-              <li>The Daily Quiz window is set by administrators. Check the countdown timer below for timing.</li>
+              <li>The Daily Quiz timeframe is fixed. Check the countdown timer below for timing.</li>
               <li>When the quiz is live, click on the "Start Quiz" button to begin.</li>
               <li>Answer all questions before the timer expires.</li>
               <li>Your score is based on correct answers and submission time.</li>
-              <li>Top 3 performers get bonus points (5/3/1 pts).</li>
+              <li>Top 3 performers get bonus points (5pts, 3pts, & 1pts) respectively.</li>
               <li>Check the leaderboard to see your ranking!</li>
             </ol>
           </div>
         </div>
 
         {/* Previous quizzes UI removed */}
-      </div>}
+      </div>
 
-      
-      
-      
-      {isActive === 'topic quiz' && 
-        <>
-          <AttemptedTopicQuiz/>
-        </>
-      }
 
     </div>
   );

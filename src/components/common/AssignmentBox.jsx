@@ -9,14 +9,14 @@ export default function AssignmentBox({ children, title }) {
             <hr />
             <div className="exercise">
                 
-                <h3>Assignment: ({title})</h3>
+                <h3>Quest: ({title})</h3>
 
                 <p>Instructions:</p>
 
                 {children}
 
                 <Link to="/assignments" className="assignment-btn">
-                    Click to Submit Assignment
+                    Click to Submit Quest
                     <span><MoveRight/></span>
                 </Link>    
             </div>

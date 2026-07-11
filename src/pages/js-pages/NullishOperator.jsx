@@ -22,7 +22,7 @@ export default function NullishOperator() {
 
             <PrevNextBtn 
                 prevPath="/js-not-operator" 
-                nextPath="/js-if-statement"
+                nextPath="/js-while-loop"
             />
         </section>
     );

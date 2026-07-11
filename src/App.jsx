@@ -17,6 +17,7 @@ import NoAccess from './pages/NoAccess';
 
 import CourseContentScreen from './pages/CourseContentScreen';
 import AssignmentScreen from './pages/AssignmentScreen';
+import Checkpoints from './pages/Checkpoints';
 import QuizScreen from './pages/QuizScreen';
 import LeaderboardScreen from './pages/LeaderboardScreen';
 import TranscriptScreen from './pages/TranscriptScreen';
@@ -167,6 +168,7 @@ function App() {
               <Route index element={<RoleBasedDashboard />} />
               <Route path="/content" element={<CourseContentScreen />} />
               <Route path="/assignments" element={<AssignmentScreen />} />
+              <Route path="/checkpoints" element={<Checkpoints />} />
               <Route path="/quizzes" element={<QuizScreen />} />
               <Route path="/leaderboard" element={<LeaderboardScreen />} />
               <Route path="/transcript" element={<TranscriptScreen />} />

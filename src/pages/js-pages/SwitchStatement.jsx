@@ -22,7 +22,7 @@ export default function SwitchStatement() {
 
             <PrevNextBtn 
                 prevPath="/js-elseif-statement" 
-                nextPath="/js-while-loop"
+                nextPath="/js-or-operator"
             />
         </section>
     );

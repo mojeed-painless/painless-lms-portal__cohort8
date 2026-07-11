@@ -5,7 +5,7 @@ import borderImg from '../src/assets/borderImg.jpg'
 export const DailyQuizData = [
     {
         day: 1,
-        date: '02/06/2026',
+        date: '07/13/2026',
         questions: [
             {
                 id: 1,
@@ -55,7 +55,7 @@ export const DailyQuizData = [
     },
     {
         day: 2,
-        date: '02/07/2026',
+        date: '07/14/2026',
         questions: [
             {
                 id: 1,
@@ -94,7 +94,7 @@ export const DailyQuizData = [
     },
     {
         day: 3,
-        date: '02/08/2026',
+        date: '07/15/2026',
         questions: [
             {
                 id: 1,
@@ -122,7 +122,7 @@ export const DailyQuizData = [
     },
     {
         day: 4,
-        date: '02/10/2026',
+        date: '07/16/2026',
         questions: [
             {
                 id: 1,
@@ -135,15 +135,9 @@ export const DailyQuizData = [
                     { id: 'D', text: "click and mark button" }
                 ],
                 correctAnswer: 'B',
-            }
-        ],
-    },
-    {
-        day: 5,
-        date: '02/12/2026',
-        questions: [
+            },
             {
-                id: 1,
+                id: 2,
                 question: "What type of styling is shown below?",
                 image: internalImg,
                 options: [
@@ -157,8 +151,54 @@ export const DailyQuizData = [
         ],
     },
     {
+        day: 5,
+        date: '07/17/2026',
+        questions: [
+            {
+                id: 1,
+                question: "What is painless's real name?",
+                image: internalImg,
+                options: [
+                    { id: 'A', text: "Usman Oyewole" },
+                    { id: 'B', text: "Femi Lawal" },
+                    { id: 'C', text: "Mojeed Shittu" },
+                    { id: 'D', text: "John Paul" }
+                ],
+                correctAnswer: 'C',
+            }
+        ],
+    },
+    {
         day: 6,
-        date: '02/13/2026',
+        date: '07/18/2026',
+        questions: [
+            {
+                id: 1,
+                question: "Which two components make up the two main parts of every CSS rule?",
+                options: [
+                    { id: 'A', text: "The property and the value" },
+                    { id: 'B', text: "The selector and the declaration block" },
+                    { id: 'C', text: "The colon and the semicolon" },
+                    { id: 'D', text: "The HTML element and the curly braces" }
+                ],
+                correctAnswer: 'B',
+            },
+            {
+                id: 2,
+                question: "What specific character must be used to separate multiple declarations inside a declaration block?",
+                options: [
+                    { id: 'A', text: "A colon (:)" },
+                    { id: 'B', text: "A curly brace ({)" },
+                    { id: 'C', text: "A semicolon (;)" },
+                    { id: 'D', text: "A period (.)" }
+                ],
+                correctAnswer: 'C',
+            }
+        ],
+    },
+    {
+        day: 7,
+        date: '07/19/2026',
         questions: [
             {
                 id: 1,
@@ -196,8 +236,8 @@ export const DailyQuizData = [
         ],
     },
     {
-        day: 7,
-        date: '02/14/2026',
+        day: 8,
+        date: '07/20/2026',
         questions: [
             {
                 id: 1,
@@ -225,8 +265,8 @@ export const DailyQuizData = [
         ],
     },
     {
-        day: 8,
-        date: '02/15/2026',
+        day: 9,
+        date: '07/21/2026',
         questions: [
             {
                 id: 1,
@@ -239,48 +279,8 @@ export const DailyQuizData = [
                 ],
                 correctAnswer: 'C',
             },
-        ],
-    },
-    {
-        day: 9,
-        date: '02/16/2026',
-        questions: [
             {
-                id: 1,
-                question: "What is the name of the first programmer?",
-                options: [
-                    { id: 'A', text: "Ada Lovelace" },
-                    { id: 'B', text: "Lord Byron" },
-                    { id: 'C', text: "Bill Gate" },
-                    { id: 'D', text: "Mark Zuckerberg" }
-                ],
-                correctAnswer: 'A',
-            },
-        ],
-    },
-    {
-        day: 10,
-        date: '02/17/2026',
-        questions: [
-            {
-                id: 1,
-                question: "What is the name of the first programmer?",
-                options: [
-                    { id: 'A', text: "Ada Lovelace" },
-                    { id: 'B', text: "Lord Byron" },
-                    { id: 'C', text: "Bill Gate" },
-                    { id: 'D', text: "Mark Zuckerberg" }
-                ],
-                correctAnswer: 'A',
-            },
-        ],
-    },
-    {
-        day: 11,
-        date: '02/18/2026',
-        questions: [
-            {
-                id: 1,
+                id: 2,
                 question: "Which of the following is not a link state in CSS?",
                 options: [
                     { id: 'A', text: ":hover" },
@@ -293,28 +293,56 @@ export const DailyQuizData = [
         ],
     },
     {
-        day: 12,
-        date: '02/19/2026',
+        day: 10,
+        date: '07/21/2026',
         questions: [
             {
-                id: "12",
-                question: "Which of the following property-value pairs below is used to remove double border from tables?",
+                id: 1,
+                question: "Which CSS property allows you to control the bullet or number style of an HTML list?",
                 options: [
-                    { id: 'A', text: "border: 1px solid black;" },
-                    { id: 'B', text: "border-collapse: single;" },
-                    { id: 'C', text: "border-collapse: collapse;" },
-                    { id: 'D', text: "border: single-line;" }
+                    { id: 'A', text: "list-marker-style" },
+                    { id: 'B', text: "list-style-type" },
+                    { id: 'C', text: "bullet-type" },
+                    { id: 'D', text: "marker-style" }
                 ],
-                correctAnswer: 'C',
+                correctAnswer: 'B',
+            },
+            {
+                id: 2,
+                question: "By default, table cells have separate borders. Which property is used to collapse them into a single border?",
+                options: [
+                    { id: 'A', text: "border-style: merge;" },
+                    { id: 'B', text: "border-collapse: collapse;" },
+                    { id: 'C', text: "table-border: single;" },
+                    { id: 'D', text: "border-spacing: 0;" }
+                ],
+                correctAnswer: 'B',
+            }
+        ],
+    },
+    {
+        day: 11,
+        date: '07/22/2026',
+        questions: [
+            {
+                id: 1,
+                question: "What is the name of the first programmer?",
+                options: [
+                    { id: 'A', text: "Ada Lovelace" },
+                    { id: 'B', text: "Lord Byron" },
+                    { id: 'C', text: "Bill Gate" },
+                    { id: 'D', text: "Mark Zuckerberg" }
+                ],
+                correctAnswer: 'A',
             },
         ],
     },
     {
-        day: 13,
-        date: '02/20/2026',
+        day: 12,
+        date: '07/23/2026',
         questions: [
             {
-                id: "13",
+                id: 1,
                 question: "display: none removes both content and space while visibility: hidden removes just content but keeps the space.",
                 options: [
                     { id: 'A', text: "maybe" },
@@ -327,8 +355,36 @@ export const DailyQuizData = [
         ],
     },
     {
-        day: 15,
-        date: '02/21/2026',
+        day: 13,
+        date: '07/24/2026',
+        questions: [
+        {
+            id: 1,
+            question: "Which CSS position value acts as a hybrid that behaves like 'relative' until a scroll threshold is crossed, and then behaves like 'fixed'?",
+            options: [
+                { id: 'A', text: "static" },
+                { id: 'B', text: "absolute" },
+                { id: 'C', text: "sticky" },
+                { id: 'D', text: "fixed" }
+            ],
+            correctAnswer: 'C',
+        },
+        {
+            id: 2,
+            question: "What is a requirement for the z-index property to work properly?",
+            options: [
+                { id: 'A', text: "It must only be used on elements with overflow: hidden" },
+                { id: 'B', text: "It must be applied to a positioned element" },
+                { id: 'C', text: "It must be used inside a scrollable container with a fixed height" },
+                { id: 'D', text: "It must only be applied to elements using the default static position" }
+            ],
+            correctAnswer: 'B',
+        }
+        ],
+    },
+    {
+        day: 14,
+        date: '07/25/2026',
         questions: [
             {
                 id: 1,
@@ -344,11 +400,25 @@ export const DailyQuizData = [
         ],
     },
     {
+        day: 15,
+        date: '07/26/2026',
+        questions: [
+
+        ],
+    },
+    {
         day: 16,
-        date: '02/22/2026',
+        date: '07/27/2026',
+        questions: [
+
+        ],
+    },
+    {
+        day: 17,
+        date: '07/28/2026',
         questions: [
             {
-                id: "16",
+                id: 1,
                 question: "Which of the following symbols is used for adjacent sibling selector",
                 options: [
                     { id: 'A', text: "+" },
@@ -361,11 +431,11 @@ export const DailyQuizData = [
         ],
     },
     {
-        day: 17,
-        date: '02/23/2026',
+        day: 18,
+        date: '07/29/2026',
         questions: [
             {
-                id: "17",
+                id: 1,
                 question: "Which of the following is the correct way of using attribute selectors?",
                 options: [
                     { id: 'A', text: "element::attribute" },
@@ -378,29 +448,15 @@ export const DailyQuizData = [
         ],
     },
     {
-        day: 6,
-        date: '02/13/2026',
+        day: 19,
+        date: '07/30/2026',
         questions: [
             
         ],
     },
     {
-        day: 6,
-        date: '02/13/2026',
-        questions: [
-            
-        ],
-    },
-    {
-        day: 6,
-        date: '02/13/2026',
-        questions: [
-            
-        ],
-    },
-    {
-        day: 6,
-        date: '02/13/2026',
+        day: 20,
+        date: '07/31/2026',
         questions: [
             
         ],
@@ -1202,13 +1258,13 @@ export const TopicQuizData = [
         
         ],
     },
-    {
-        topic: '',
-        category: 'html',
-        questions: [
+    // {
+    //     topic: '',
+    //     category: 'html',
+    //     questions: [
             
-        ],
-    },
+    //     ],
+    // },
 
 
 
@@ -2115,13 +2171,6 @@ export const TopicQuizData = [
         topic: 'Icons',
         category: 'css1',
         questions: [
-            
-        ],
-    },
-    {
-        topic: 'Icons',
-        category: 'css1',
-        questions: [
             {
         id: 1,
         question: "What is the simplest and most common way to add professional icons to a web page?",
@@ -2179,7 +2228,13 @@ export const TopicQuizData = [
     }
         ],
     },
-
+    // {
+    //     topic: 'Icons',
+    //     category: 'css1',
+    //     questions: [
+            
+    //     ],
+    // },
 
 
 
@@ -3309,13 +3364,13 @@ export const TopicQuizData = [
     }
         ],
     },
-    {
-        topic: '',
-        category: 'css2',
-        questions: [
+    // {
+    //     topic: '',
+    //     category: 'css2',
+    //     questions: [
             
-        ],
-    },
+    //     ],
+    // },
 ];
 
     

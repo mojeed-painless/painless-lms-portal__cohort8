@@ -21,7 +21,7 @@ export default function OrOperator() {
             </section>
 
             <PrevNextBtn 
-                prevPath="/js-mixed-comparison" 
+                prevPath="/js-switch-statement" 
                 nextPath="/js-and-operator"
             />
         </section>

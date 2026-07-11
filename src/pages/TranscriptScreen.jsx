@@ -98,9 +98,9 @@ export default function TranscriptScreen() {
 
       {/* Stats Grid */}
       <div className="transcript__stats-grid">
-        <StatCard icon={<BadgeCheck size= {150} />} percentage={Math.round((assignmentAverage + quizAverage) / ( (assignmentAverage>0)+(quizAverage>0) || 1 ))} label="Overall Average" sub="Across all assessments" borderColor="#3b82f6" />
-        <StatCard icon={<NotepadText size= {150} />} percentage={assignmentAverage} label="Assignment Average" sub={`${graded.length} assignments graded`} borderColor="#60a5fa" />
-        <StatCard icon={<Sparkles size={150} />} percentage={quizAverage} label="Quiz Average" sub={`${quizAttempts.length} quizzes taken`} borderColor="#22d3ee" />
+        <StatCard icon={<BadgeCheck size= {150} />} percentage={Math.round((assignmentAverage + quizAverage) / ( (assignmentAverage>0)+(quizAverage>0) || 1 ))} label="Overall Average" sub="Across all assessments" borderColor="#14bae4" />
+        <StatCard icon={<NotepadText size= {150} />} percentage={assignmentAverage} label="Quest Average" sub={`${graded.length} quests graded`} borderColor="#e12d13" />
+        <StatCard icon={<Sparkles size={150} />} percentage={quizAverage} label="Quiz Average" sub={`${quizAttempts.length} quizzes taken`} borderColor="#15df52" />
       </div>
 
 
@@ -125,14 +125,14 @@ export default function TranscriptScreen() {
   );
 };
 
-const StatCard = ({ percentage, label, sub, icon }) => (
+const StatCard = ({ percentage, label, sub, icon, borderColor }) => (
   <div className="transcript__stat-card">
     <div className="transcript__progress-text">
       <h3>{label}</h3>
       <p>{sub}</p>
     </div>
     
-    <div className="transcript__progress-circle">
+    <div className="transcript__progress-circle" style={{ background: `conic-gradient(${borderColor} ${percentage * 3.6}deg, rgba(255, 255, 255, 0.3) 0deg)` }}>
       <span className="transcript__percentage-text">{percentage}%</span>
     </div>
 

@@ -1,0 +1,23 @@
+.checkpoint-review {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.89rem;
+    overflow: auto;
+}
+
+@media (max-width: 600px) {
+    .checkpoint-review {
+        justify-content: flex-start;
+    }
+}

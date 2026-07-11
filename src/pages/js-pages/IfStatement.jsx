@@ -21,7 +21,7 @@ export default function IfStatement() {
             </section>
 
             <PrevNextBtn 
-                prevPath="/js-nullish-operator" 
+                prevPath="/js-mixed-comparison" 
                 nextPath="/js-elseif-statement"
             />
         </section>

@@ -228,9 +228,9 @@ const AssignmentScreen = () => {
     <div className="assignments-container">
       <div className="transcript__header">
         <div className="transcript__header-title">
-          <h1> <span><NotebookTabs size={25}/></span> Assignments </h1>
+          <h1> <span><NotebookTabs size={25}/></span> Quests </h1>
           <p className="transcript__header-subtitle">
-            Submit all pending assignments before due date
+            Submit all pending quests before due date
           </p>
         </div>
 
@@ -240,7 +240,7 @@ const AssignmentScreen = () => {
         </div>
       </div>
 
-      {loading && <p className="loading-message">Loading assignments...</p>}
+      {loading && <p className="loading-message">Loading quests...</p>}
 
       {!isAdmin && (
         <>
@@ -251,9 +251,9 @@ const AssignmentScreen = () => {
                 <span className="orange">
                   <History size={19} />
                 </span>
-                Pending Assignments
+                Pending Quests
               </h3>
-              <span className="count-badge orange">{pending.length} {`assignment${pending.length <= 1 ? '' : 's'}`}</span>
+              <span className="count-badge orange">{pending.length} {`quest${pending.length <= 1 ? '' : 's'}`}</span>
             </div>
             <div className="table-responsive">
               <table className="assignment__table">
@@ -262,7 +262,7 @@ const AssignmentScreen = () => {
                     <th>#</th>
                     <th>Title</th>
                     <th>Due Date</th>
-                    <th>Assignment Link</th>
+                    <th>Quests Link</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -278,7 +278,7 @@ const AssignmentScreen = () => {
                         <td className="first-inputs">
                           <input
                             type="text"
-                            placeholder="Paste your assignment link here..."
+                            placeholder="Paste your quest link here..."
                             className="link-input first-input"
                             value={assignmentLinks[item.id] || ''}
                             onChange={(e) =>
@@ -309,7 +309,7 @@ const AssignmentScreen = () => {
                 )}
               </table>
               {pending.length === 0 && (
-                <p className="empty__assignment">No Pending Assignment</p>
+                <p className="empty__assignment">No Pending Quest</p>
               )}
             </div>
           </section>
@@ -321,9 +321,9 @@ const AssignmentScreen = () => {
                 <span className="blue">
                   <NotepadText size={19} />
                 </span>
-                Submitted Assignments
+                Submitted Quests
               </h3>
-              <span className="count-badge blue">{submitted.length} {`assignment${submitted.length <= 1 ? '' : 's'}`}</span>
+              <span className="count-badge blue">{submitted.length} {`quest${submitted.length <= 1 ? '' : 's'}`}</span>
             </div>
             <div className="table-responsive">
               <table className="assignment__table">
@@ -333,7 +333,7 @@ const AssignmentScreen = () => {
                     <th>Title</th>
                     <th>Due Date</th>
                     <th>Submitted Date</th>
-                    <th>Assignment Link</th>
+                    <th>Quest Link</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -371,7 +371,7 @@ const AssignmentScreen = () => {
                 )}
               </table>
               {submitted.length === 0 && (
-                <p className="empty__assignment">No Assignment Submitted</p>
+                <p className="empty__assignment">No Quest Submitted</p>
               )}
             </div>
           </section>
@@ -383,9 +383,9 @@ const AssignmentScreen = () => {
                 <span className="green">
                   <Award size={19} />
                 </span>
-                Graded Assignments
+                Graded Quests
               </h3>
-              <span className="count-badge green">{graded.length} {`assignment${graded.length <= 1 ? '' : 's'}`}</span>
+              <span className="count-badge green">{graded.length} {`quest${graded.length <= 1 ? '' : 's'}`}</span>
             </div>
             <div className="table-responsive">
               <table className="assignment__table">
@@ -395,7 +395,7 @@ const AssignmentScreen = () => {
                     <th>Title</th>
                     <th>Due Date</th>
                     <th>Submitted Date</th>
-                    <th>Assignment Link</th>
+                    <th>Quest Link</th>
                     <th>Score</th>
                   </tr>
                 </thead>
@@ -433,7 +433,7 @@ const AssignmentScreen = () => {
                 )}
               </table>
               {graded.length === 0 && (
-                <p className="empty__assignment">No Assignment Graded</p>
+                <p className="empty__assignment">No Quest Graded</p>
               )}
             </div>
           </section>
@@ -450,18 +450,18 @@ const AssignmentScreen = () => {
                 <span className="purple">
                   <Plus size={19} />
                 </span>
-                Create Assignment
+                Create Quest
               </h3>
             </div>
             <div className="add-assignment-form">
               <form onSubmit={handleAddAssignment} className="assignment-form">
                 <div className="form-row">
                   <div className="form-group">
-                    <label htmlFor="title">Assignment Title</label>
+                    <label htmlFor="title">Quest Title</label>
                     <input
                       id="title"
                       type="text"
-                      placeholder="Enter assignment title..."
+                      placeholder="Enter quest title..."
                       className="form-input"
                       value={newAssignment.title}
                       onChange={(e) =>
@@ -509,10 +509,10 @@ const AssignmentScreen = () => {
                 </div>
               </form>
 
-              {/* Uploaded Assignments List */}
+              {/* Uploaded Quests List */}
               {allAssignments.length > 0 && (
                 <div className="uploaded-assignments">
-                  <h4>Uploaded Assignments</h4>
+                  <h4>Uploaded Quests</h4>
                   <div className="assignments-list">
                     {allAssignments.map((assignment) => (
                       <div key={assignment.id} className="assignment-item">
@@ -610,9 +610,9 @@ const AssignmentScreen = () => {
                 <span className="blue">
                   <NotepadText size={19} />
                 </span>
-                Submitted Assignments
+                Submitted Quest
               </h3>
-              <span className="count-badge blue">{submitted.length} assignments</span>
+              <span className="count-badge blue">{submitted.length} quests</span>
             </div>
             <div className="table-responsive">
               <table className="assignment__table">
@@ -623,7 +623,7 @@ const AssignmentScreen = () => {
                     <th>Student Name</th>
                     <th>Due Date</th>
                     <th>Submitted Date</th>
-                    <th>Assignment Link</th>
+                    <th>Quest Link</th>
                     <th>Score</th>
                     <th>Action</th>
                   </tr>
@@ -680,7 +680,7 @@ const AssignmentScreen = () => {
                 )}
               </table>
               {submitted.length === 0 && (
-                <p className="empty__assignment">No Assignment Submitted</p>
+                <p className="empty__assignment">No Quest Submitted</p>
               )}
             </div>
           </section>
@@ -692,9 +692,9 @@ const AssignmentScreen = () => {
                 <span className="green">
                   <Award size={19} />
                 </span>
-                Graded Assignments
+                Graded Quest
               </h3>
-              <span className="count-badge green">{graded.length} assignments</span>
+              <span className="count-badge green">{graded.length} quests</span>
             </div>
             <div className="table-responsive">
               <table className="assignment__table">
@@ -705,7 +705,7 @@ const AssignmentScreen = () => {
                     <th>Student Name</th>
                     <th>Due Date</th>
                     <th>Submitted Date</th>
-                    <th>Assignment Link</th>
+                    <th>Quest Link</th>
                     <th>Score</th>
                     <th>Action</th>
                   </tr>
@@ -784,7 +784,7 @@ const AssignmentScreen = () => {
                 )}
               </table>
               {graded.length === 0 && (
-                <p className="empty__assignment">No Assignment Graded</p>
+                <p className="empty__assignment">No Quest Graded</p>
               )}
             </div>
           </section>

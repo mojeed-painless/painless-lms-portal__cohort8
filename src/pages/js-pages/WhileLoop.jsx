@@ -21,7 +21,7 @@ export default function WhileLoop() {
             </section>
 
             <PrevNextBtn 
-                prevPath="/js-switch-statement" 
+                prevPath="/js-nullish-operator" 
                 nextPath="/js-for-loop"
             />
         </section>

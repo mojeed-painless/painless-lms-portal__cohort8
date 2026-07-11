@@ -103,7 +103,7 @@
   width: 6rem;
   height: 6rem;
   border-radius: 50%;
-  background: rgb(20, 186, 228);
+  background: #14bae4;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -118,33 +118,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.transcript__stat-card:first-child .transcript__progress-circle {
-    background: conic-gradient(
-        rgb(20, 186, 228) 0deg,
-        rgb(20, 186, 228) 295.2deg,
-        rgba(255, 255, 255, 0.3) 295.2deg,
-        rgba(255, 255, 255, 0.3) 360deg
-    );
-}
-
-.transcript__stat-card:nth-child(2) .transcript__progress-circle {
-    background: conic-gradient(
-        rgb(233, 44, 19) 0deg,
-        rgb(233, 44, 19) 320.4deg,
-        rgba(255, 255, 255, 0.3) 320.4deg,
-        rgba(255, 255, 255, 0.3) 360deg
-    );
-}
-
-.transcript__stat-card:last-child .transcript__progress-circle {
-    background: conic-gradient(
-        rgb(21, 223, 82) 0deg,
-        rgb(21, 223, 82) 270deg,
-        rgba(255, 255, 255, 0.3) 270deg,
-        rgba(255, 255, 255, 0.3) 360deg
-    );
 }
 
 .transcript__percentage-text {
