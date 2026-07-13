@@ -2,10 +2,52 @@ import radioImg from '../src/assets/radio.jpg'
 import internalImg from '../src/assets/internalImg.png'
 import borderImg from '../src/assets/borderImg.jpg'
 
+// function formatDate(date) {
+//     if (date < 10) {
+//         date = `0${date}`
+//     }
+
+//     return date
+// }
+
+// function calcDate(day) {
+//     let result
+//     let fewMonth = [9, 4, 6, 11]
+//     let startDay = 13
+//     let startMonth = 7
+
+//     startDay = startDay - 2 + day 
+
+//     for (let i = 0; i < fewMonth.length; i++) {
+//         if (startMonth == fewMonth[i]) {
+//             startDay = (startDay % 30) + 1
+//             break
+//         } else if (startMonth == 2) {
+//             startDay = (startDay % 28) + 1
+//             break
+//         } else if (i == fewMonth.length - 1) {
+//             startDay = (startDay % 31) + 1
+//         }
+//     }
+
+//     if (startDay == 1) { 
+//         startMonth++
+//     }
+
+//     startMonth = formatDate(startMonth)
+//     startDay = formatDate(startDay)
+
+//     result = `${startMonth}/${startDay}/2026`
+
+//     return result
+// }
+
+// console.log(calcDate(50))
+
 export const DailyQuizData = [
     {
         day: 1,
-        date: '07/13/2026',
+        date: '07/23/2026',
         questions: [
             {
                 id: 1,
@@ -170,7 +212,7 @@ export const DailyQuizData = [
     },
     {
         day: 6,
-        date: '07/18/2026',
+        date: '07/13/2026',
         questions: [
             {
                 id: 1,
