@@ -100,7 +100,7 @@ export default function TranscriptScreen() {
       <div className="transcript__stats-grid">
         <StatCard icon={<BadgeCheck size= {150} />} percentage={Math.round((assignmentAverage + quizAverage) / ( (assignmentAverage>0)+(quizAverage>0) || 1 ))} label="Overall Average" sub="Across all assessments" borderColor="#14bae4" />
         <StatCard icon={<NotepadText size= {150} />} percentage={assignmentAverage} label="Quest Average" sub={`${graded.length} quests graded`} borderColor="#e12d13" />
-        <StatCard icon={<Sparkles size={150} />} percentage={quizAverage} label="Quiz Average" sub={`${quizAttempts.length} quizzes taken`} borderColor="#15df52" />
+        <StatCard icon={<Sparkles size={150} />} percentage={quizAverage} label="Checkpoints Average" sub={`${quizAttempts.length} quizzes taken`} borderColor="#15df52" />
       </div>
 
 
