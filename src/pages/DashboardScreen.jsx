@@ -174,7 +174,7 @@ const DashboardScreen = () => {
                 displayDescription = `${percentage}% completed`;
               }
 
-              if (title === 'Assignments Done') {
+              if (title === 'Quests Done') {
                 const done = submitted.length + graded.length;
                 const pendingCount = pending.length;
                 displayFigure = `${done}`;
