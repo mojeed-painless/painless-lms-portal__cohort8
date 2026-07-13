@@ -279,9 +279,9 @@ export const statsData = [
         Icon: Award,
     },
     {
-        title: 'Assignments Done',
+        title: 'Quests Done',
         figure: '5',
-        description: 'submit (2) pending Assignment',
+        description: 'submit (2) pending Quest',
         Icon: NotepadText,
     },
     {
