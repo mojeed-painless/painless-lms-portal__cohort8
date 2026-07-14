@@ -36,18 +36,64 @@ export const useAssignments = (token) => {
       const response = await fetch(`${API_URL}/api/assignments/student/pending`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+
       const data = await response.json();
-      setPending(data.assignments || []);
+      const studentPendingAssignments = data.assignments || [];
+
+      if (studentPendingAssignments.length > 0) {
+        setPending(studentPendingAssignments);
+        return;
+      }
+
+      const [submittedResponse, gradedResponse] = await Promise.all([
+        fetch(`${API_URL}/api/assignments/student/submitted`, {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        fetch(`${API_URL}/api/assignments/student/graded`, {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+      ]);
+
+      const submittedData = submittedResponse.ok
+        ? await submittedResponse.json()
+        : { assignments: [] };
+      const gradedData = gradedResponse.ok
+        ? await gradedResponse.json()
+        : { assignments: [] };
+
+      const completedAssignmentIds = new Set(
+        [
+          ...(submittedData.assignments || []).map((item) => item.id || item._id),
+          ...(gradedData.assignments || []).map((item) => item.id || item._id),
+        ].filter(Boolean)
+      );
+
+      const fallbackResponse = await fetch(`${API_URL}/api/assignments/admin/all`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (!fallbackResponse.ok) {
+        setPending([]);
+        return;
+      }
+
+      const fallbackData = await fallbackResponse.json();
+      const allAssignmentsForStudent = (fallbackData.assignments || []).filter(
+        (assignment) => !completedAssignmentIds.has(assignment.id || assignment._id)
+      );
+
+      setPending(allAssignmentsForStudent);
     } catch (err) {
       handleError(err);
       setPending([]);
     } finally {
       setLoading(false);
     }
-  }, [token]);
+  }, [API_URL, token]);
 
   const fetchSubmittedAssignments = useCallback(async () => {
     if (!token) return;
@@ -68,7 +114,7 @@ export const useAssignments = (token) => {
     } finally {
       setLoading(false);
     }
-  }, [token]);
+  }, [API_URL, token]);
 
   const fetchGradedAssignments = useCallback(async () => {
     if (!token) return;
@@ -89,7 +135,7 @@ export const useAssignments = (token) => {
     } finally {
       setLoading(false);
     }
-  }, [token]);
+  }, [API_URL, token]);
 
   const submitAssignment = useCallback(
     async (studentAssignmentId, submissionLink) => {
@@ -129,7 +175,7 @@ export const useAssignments = (token) => {
         setLoading(false);
       }
     },
-    [token, fetchSubmittedAssignments]
+    [API_URL, token, fetchSubmittedAssignments]
   );
 
   // ADMIN ENDPOINTS
@@ -152,7 +198,7 @@ export const useAssignments = (token) => {
     } finally {
       setLoading(false);
     }
-  }, [token]);
+  }, [API_URL, token]);
 
   const fetchGradedAssignmentsAdmin = useCallback(async () => {
     if (!token) return;
@@ -173,7 +219,7 @@ export const useAssignments = (token) => {
     } finally {
       setLoading(false);
     }
-  }, [token]);
+  }, [API_URL, token]);
 
   const gradeAssignment = useCallback(
     async (studentAssignmentId, score, feedback = '') => {
@@ -218,7 +264,7 @@ export const useAssignments = (token) => {
         setLoading(false);
       }
     },
-    [token, fetchGradedAssignmentsAdmin]
+    [API_URL, token, fetchGradedAssignmentsAdmin]
   );
 
   const updateGrade = useCallback(
@@ -263,7 +309,7 @@ export const useAssignments = (token) => {
         setLoading(false);
       }
     },
-    [token, fetchGradedAssignmentsAdmin]
+    [API_URL, token, fetchGradedAssignmentsAdmin]
   );
 
   // ADMIN ASSIGNMENT MANAGEMENT
@@ -286,7 +332,7 @@ export const useAssignments = (token) => {
     } finally {
       setLoading(false);
     }
-  }, [token]);
+  }, [API_URL, token]);
 
   const createAssignment = useCallback(
     async (title, description, dueDate, courseType) => {
@@ -332,7 +378,7 @@ export const useAssignments = (token) => {
         setLoading(false);
       }
     },
-    [token, fetchAllAssignments]
+    [API_URL, token, fetchAllAssignments]
   );
 
   const updateAssignment = useCallback(
@@ -379,7 +425,7 @@ export const useAssignments = (token) => {
         setLoading(false);
       }
     },
-    [token, fetchAllAssignments]
+    [API_URL, token, fetchAllAssignments]
   );
 
   const deleteAssignment = useCallback(
@@ -409,7 +455,7 @@ export const useAssignments = (token) => {
         setLoading(false);
       }
     },
-    [token]
+    [API_URL, token]
   );
 
   return {
