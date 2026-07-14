@@ -110,7 +110,7 @@ export const topics = [
             {name: 'Why should I learn Coding', path: '/why'},
             {name: 'Course Overview', path: '/course-overview'},
             {name: 'Code Editors', path: '/editor'},
-            {name: 'Assignment Guide', path: '/assignment-guide'},
+            {name: 'Quest Guide', path: '/assignment-guide'},
         ]
     },
     {

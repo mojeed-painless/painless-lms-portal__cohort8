@@ -2,52 +2,23 @@ import radioImg from '../src/assets/radio.jpg'
 import internalImg from '../src/assets/internalImg.png'
 import borderImg from '../src/assets/borderImg.jpg'
 
-// function formatDate(date) {
-//     if (date < 10) {
-//         date = `0${date}`
-//     }
+function formatDate(date) {
+    return date < 10 ? `0${date}` : `${date}`
+}
 
-//     return date
-// }
+function getQuizDate(dayNumber) {
+    const startDate = new Date(2026, 6, 14)
+    const quizDate = new Date(startDate)
+    quizDate.setDate(startDate.getDate() + dayNumber - 1)
 
-// function calcDate(day) {
-//     let result
-//     let fewMonth = [9, 4, 6, 11]
-//     let startDay = 13
-//     let startMonth = 7
-
-//     startDay = startDay - 2 + day 
-
-//     for (let i = 0; i < fewMonth.length; i++) {
-//         if (startMonth == fewMonth[i]) {
-//             startDay = (startDay % 30) + 1
-//             break
-//         } else if (startMonth == 2) {
-//             startDay = (startDay % 28) + 1
-//             break
-//         } else if (i == fewMonth.length - 1) {
-//             startDay = (startDay % 31) + 1
-//         }
-//     }
-
-//     if (startDay == 1) { 
-//         startMonth++
-//     }
-
-//     startMonth = formatDate(startMonth)
-//     startDay = formatDate(startDay)
-
-//     result = `${startMonth}/${startDay}/2026`
-
-//     return result
-// }
-
-// console.log(calcDate(50))
+    let result = `${formatDate(quizDate.getMonth() + 1)}/${formatDate(quizDate.getDate())}/${quizDate.getFullYear()}`
+    return result
+}
 
 export const DailyQuizData = [
     {
         day: 1,
-        date: '07/23/2026',
+        date: getQuizDate(1),
         questions: [
             {
                 id: 1,
@@ -97,7 +68,7 @@ export const DailyQuizData = [
     },
     {
         day: 2,
-        date: '07/14/2026',
+        date: getQuizDate(2),
         questions: [
             {
                 id: 1,
@@ -136,7 +107,7 @@ export const DailyQuizData = [
     },
     {
         day: 3,
-        date: '07/15/2026',
+        date: getQuizDate(3),
         questions: [
             {
                 id: 1,
@@ -164,7 +135,7 @@ export const DailyQuizData = [
     },
     {
         day: 4,
-        date: '07/16/2026',
+        date: getQuizDate(4),
         questions: [
             {
                 id: 1,
@@ -194,7 +165,7 @@ export const DailyQuizData = [
     },
     {
         day: 5,
-        date: '07/17/2026',
+        date: getQuizDate(5),
         questions: [
             {
                 id: 1,
@@ -212,7 +183,7 @@ export const DailyQuizData = [
     },
     {
         day: 6,
-        date: '07/13/2026',
+        date: getQuizDate(6),
         questions: [
             {
                 id: 1,
@@ -240,7 +211,7 @@ export const DailyQuizData = [
     },
     {
         day: 7,
-        date: '07/19/2026',
+        date: getQuizDate(7),
         questions: [
             {
                 id: 1,
@@ -279,7 +250,7 @@ export const DailyQuizData = [
     },
     {
         day: 8,
-        date: '07/20/2026',
+        date: getQuizDate(8),
         questions: [
             {
                 id: 1,
@@ -308,7 +279,7 @@ export const DailyQuizData = [
     },
     {
         day: 9,
-        date: '07/21/2026',
+        date: getQuizDate(9),
         questions: [
             {
                 id: 1,
@@ -336,7 +307,7 @@ export const DailyQuizData = [
     },
     {
         day: 10,
-        date: '07/21/2026',
+        date: getQuizDate(10),
         questions: [
             {
                 id: 1,
@@ -364,7 +335,7 @@ export const DailyQuizData = [
     },
     {
         day: 11,
-        date: '07/22/2026',
+        date: getQuizDate(11),
         questions: [
             {
                 id: 1,
@@ -381,7 +352,7 @@ export const DailyQuizData = [
     },
     {
         day: 12,
-        date: '07/23/2026',
+        date: getQuizDate(12),
         questions: [
             {
                 id: 1,
@@ -398,7 +369,7 @@ export const DailyQuizData = [
     },
     {
         day: 13,
-        date: '07/24/2026',
+        date: getQuizDate(13),
         questions: [
         {
             id: 1,
@@ -426,7 +397,7 @@ export const DailyQuizData = [
     },
     {
         day: 14,
-        date: '07/25/2026',
+        date: getQuizDate(14),
         questions: [
             {
                 id: 1,
@@ -443,21 +414,21 @@ export const DailyQuizData = [
     },
     {
         day: 15,
-        date: '07/26/2026',
+        date: getQuizDate(15),
         questions: [
 
         ],
     },
     {
         day: 16,
-        date: '07/27/2026',
+        date: getQuizDate(16),
         questions: [
 
         ],
     },
     {
         day: 17,
-        date: '07/28/2026',
+        date: getQuizDate(17),
         questions: [
             {
                 id: 1,
@@ -474,7 +445,7 @@ export const DailyQuizData = [
     },
     {
         day: 18,
-        date: '07/29/2026',
+        date: getQuizDate(18),
         questions: [
             {
                 id: 1,
@@ -491,14 +462,14 @@ export const DailyQuizData = [
     },
     {
         day: 19,
-        date: '07/30/2026',
+        date: getQuizDate(19),
         questions: [
             
         ],
     },
     {
         day: 20,
-        date: '07/31/2026',
+        date: getQuizDate(20),
         questions: [
             
         ],
