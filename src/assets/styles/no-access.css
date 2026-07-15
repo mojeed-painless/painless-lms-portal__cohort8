@@ -1,6 +1,8 @@
 
 .no-access {
     width: 100%;
+    background-image: url('../back-tools.png');
+    background-size: cover;
 }
 
 .upgrade-wrapper {
