@@ -18,8 +18,8 @@
 
 .admin-container {
   background-color: var(--bg-color);
-  /* background-image: url('../back-tools.jpg');
-  background-size: cover; */
+  background-image: url('../back-tools.png');
+  background-size: cover;
   padding: 2rem;
   height: calc(100dvh - 4.5rem);
   width: 100%;

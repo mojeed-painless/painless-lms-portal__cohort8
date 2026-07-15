@@ -347,7 +347,7 @@ export const adminStats = [
     },
     {
         title: 'Course Enrollments',
-        value: '12',
+        value: '0',
         Icon: BookOpenText,
         color: 'purple',
     }
