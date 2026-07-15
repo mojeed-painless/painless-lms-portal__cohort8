@@ -30,6 +30,7 @@ const DashboardScreen = () => {
     fetchGradedAssignments
   } = useAssignments(token);
   const [quizAttempts, setQuizAttempts] = useState([]);
+  const [dailyQuizSummary, setDailyQuizSummary] = useState({ totalPoints: 0, todayPoints: 0 });
   const [courseAccess, setCourseAccess] = useState({
     htmlAccess: user?.htmlAccess || false,
     jsAccess: user?.jsAccess || false,
@@ -71,6 +72,41 @@ const DashboardScreen = () => {
     if (token) load();
     return () => { mounted = false; };
   }, [API_BASE, user]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const loadDailyQuizSummary = async () => {
+      if (!token) return;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/quiz-attempts/daily/summary`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) throw new Error('Failed to fetch daily quiz summary');
+
+        const data = await res.json();
+
+        if (mounted) {
+          setDailyQuizSummary({
+            totalPoints: data.totalPoints || 0,
+            todayPoints: data.todayPoints || 0,
+          });
+        }
+      } catch (err) {
+        if (mounted) {
+          setDailyQuizSummary({ totalPoints: 0, todayPoints: 0 });
+        }
+        console.error('Failed to load daily quiz summary', err);
+      }
+    };
+
+    loadDailyQuizSummary();
+    return () => { mounted = false; };
+  }, [API_BASE, token]);
 
   useEffect(() => {
     // Initial setup from user object
@@ -190,6 +226,13 @@ const DashboardScreen = () => {
                 const overall = Math.round((assignmentAverage + quizAverage) / ((assignmentAverage>0) + (quizAverage>0) || 1));
                 displayFigure = `${overall}%`;
                 displayDescription = 'Overall average';
+              }
+
+              if (title === 'Daily Quiz') {
+                const totalPoints = dailyQuizSummary.totalPoints || 0;
+                const todayPoints = dailyQuizSummary.todayPoints || 0;
+                displayFigure = `${totalPoints} pts`;
+                displayDescription = `+${todayPoints} pts today`;
               }
               
               return (
