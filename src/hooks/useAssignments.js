@@ -15,7 +15,8 @@ export const useAssignments = (token) => {
     const courseMap = {
       'html': 'html',
       'css': 'css',
-      'js': 'javascript',
+      'js': 'js',
+      'javascript': 'js',
       'react': 'react',
     };
     return courseMap[courseType] || courseType;

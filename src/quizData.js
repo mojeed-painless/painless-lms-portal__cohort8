@@ -170,7 +170,6 @@ export const DailyQuizData = [
             {
                 id: 1,
                 question: "What is painless's real name?",
-                image: internalImg,
                 options: [
                     { id: 'A', text: "Usman Oyewole" },
                     { id: 'B', text: "Femi Lawal" },
