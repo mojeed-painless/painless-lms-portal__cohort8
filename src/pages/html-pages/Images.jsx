@@ -77,7 +77,7 @@ export default function Images() {
  <h3>Smart Phone</h3>
     <VideoBox 
         title='Adding images to a webpage'
-        code=''
+        code='aKYV1rfDzes'
     />
 
 
