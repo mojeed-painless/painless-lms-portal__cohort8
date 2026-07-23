@@ -87,7 +87,7 @@ export default function CSSSyntax() {
 
     <VideoBox 
         title='Syntax'
-        code='2Y9FJ68wWhuk?si=N7lp4UgQlShWtYKC'
+        code='Y9FJ68wWhuk'
     />
                     
                 </div>
