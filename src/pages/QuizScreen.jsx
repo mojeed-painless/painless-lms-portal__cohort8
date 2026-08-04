@@ -25,6 +25,42 @@ import {
 } from 'lucide-react';
 import { DailyQuizData } from '../quizData.js';
 
+const DEFAULT_DAILY_QUIZ_START_DATE = '2026-07-14';
+
+const getDateOnly = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+const parseDateValue = (value) => {
+  if (!value) return null;
+  const [year, month, day] = value.split('-').map(Number);
+  if (!year || !month || !day) return null;
+  return new Date(Date.UTC(year, month - 1, day));
+};
+
+const getDailyQuizEntry = (quizStartDate, targetDate = new Date()) => {
+  const startDate = quizStartDate || DEFAULT_DAILY_QUIZ_START_DATE;
+  const targetValue = getDateOnly(targetDate);
+  const start = parseDateValue(startDate);
+  const target = parseDateValue(targetValue);
+
+  if (!start || !target) {
+    return DailyQuizData[0] || { questions: [] };
+  }
+
+  const dayOffset = Math.floor((target - start) / (1000 * 60 * 60 * 24));
+  const dayNumber = dayOffset + 1;
+
+  if (dayOffset < 0 || dayNumber < 1) {
+    return { questions: [] };
+  }
+
+  return DailyQuizData.find((entry) => entry.day === dayNumber) || { questions: [] };
+};
+
 
 
 export default function QuizScreen() {
@@ -48,6 +84,7 @@ export default function QuizScreen() {
   const [leaderLoading, setLeaderLoading] = useState(false);
   const [myDailyAttempt, setMyDailyAttempt] = useState(null);
   const [myDailyLoading, setMyDailyLoading] = useState(true);
+  const [dailyQuizStartDate, setDailyQuizStartDate] = useState(DEFAULT_DAILY_QUIZ_START_DATE);
   // previousAttempts UI and fetching removed per request
   const timerCompletedRef = useRef(false);
   const restTimerRef = useRef(null); // Track when rest period started
@@ -62,14 +99,8 @@ export default function QuizScreen() {
     const remaining = (timeLeft.duringQuiz.minutes || 0) * 60 + (timeLeft.duringQuiz.seconds || 0);
     const timeTaken = Math.max(0, totalSeconds - remaining);
 
-    // determine today's quiz entry (MM/DD/YYYY format used by DailyQuizData)
     const now = new Date();
-    const mm = String(now.getMonth() + 1).padStart(2, '0');
-    const dd = String(now.getDate()).padStart(2, '0');
-    const yyyy = now.getFullYear();
-    const todayStrLocal = `${mm}/${dd}/${yyyy}`;
-
-    const entry = DailyQuizData.find(d => d.date === todayStrLocal) || DailyQuizData[0] || { questions: [] };
+    const entry = getDailyQuizEntry(dailyQuizStartDate, now);
     const questions = entry.questions || [];
     const answers = questions.map(q => ({
       questionId: q.id,
@@ -183,6 +214,28 @@ export default function QuizScreen() {
     poll = setInterval(fetchSession, 3000);
     return () => clearInterval(poll);
   }, [user]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchQuizStartDate = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/config/daily-quiz-start-date`);
+        if (!response.ok) throw new Error('Failed to fetch daily quiz start date');
+        const data = await response.json();
+        if (isMounted) {
+          setDailyQuizStartDate(data.value || DEFAULT_DAILY_QUIZ_START_DATE);
+        }
+      } catch (err) {
+        console.error('Error fetching daily quiz start date', err);
+      }
+    };
+
+    fetchQuizStartDate();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // Update the "before quiz" countdown every second so it ticks smoothly
   useEffect(() => {
@@ -401,12 +454,7 @@ export default function QuizScreen() {
         )}
 
         {(quizIsLive && !quizStarted)  && (() => {
-          const now = new Date();
-          const mm = String(now.getMonth() + 1).padStart(2, '0');
-          const dd = String(now.getDate()).padStart(2, '0');
-          const yyyy = now.getFullYear();
-          const todayStr = `${mm}/${dd}/${yyyy}`;
-          const entry = DailyQuizData.find(d => d.date === todayStr) || DailyQuizData[0] || { questions: [] };
+          const entry = getDailyQuizEntry(dailyQuizStartDate, new Date());
           const questions = entry.questions || [];
 
           return (
@@ -449,12 +497,7 @@ export default function QuizScreen() {
           <article className='daily-quiz__live'>
             <div className="daily-quiz__box">
               {(() => {
-                const now = new Date();
-                const mm = String(now.getMonth() + 1).padStart(2, '0');
-                const dd = String(now.getDate()).padStart(2, '0');
-                const yyyy = now.getFullYear();
-                const todayStr = `${mm}/${dd}/${yyyy}`;
-                const entry = DailyQuizData.find(d => d.date === todayStr) || DailyQuizData[0] || { questions: [] };
+                const entry = getDailyQuizEntry(dailyQuizStartDate, new Date());
                 const questions = entry.questions || [];
                 const q = questions[currentQuestionIndex] || null;
 

@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config/api.js';
 
 // 1. Create the Context object
 const AuthContext = createContext();
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+const API_BASE = API_BASE_URL;
 // Define the base URL for your backend API
 const API_URL = `${API_BASE}/api/users`;
 

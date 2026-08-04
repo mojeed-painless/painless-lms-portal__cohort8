@@ -12,23 +12,35 @@ export default function SettingsScreen() {
   const isAdmin = user?.role === 'admin';
   const navigate = useNavigate();
   const [currentReleaseDay, setCurrentReleaseDay] = useState(0);
+  const [dailyQuizStartDate, setDailyQuizStartDate] = useState('2026-07-14');
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isUpdatingQuizDate, setIsUpdatingQuizDate] = useState(false);
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   // Fetch current release day from server
   useEffect(() => {
-    const fetchCurrentDay = async () => {
+    const fetchSettings = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/config/html-release-day`);
-        if (!response.ok) throw new Error('Failed to fetch release day');
-        const data = await response.json();
-        setCurrentReleaseDay(Number(data.value) || 0);
+        const [releaseResponse, quizDateResponse] = await Promise.all([
+          fetch(`${API_BASE_URL}/api/config/html-release-day`),
+          fetch(`${API_BASE_URL}/api/config/daily-quiz-start-date`),
+        ]);
+
+        if (!releaseResponse.ok) throw new Error('Failed to fetch release day');
+        if (!quizDateResponse.ok) throw new Error('Failed to fetch daily quiz start date');
+
+        const releaseData = await releaseResponse.json();
+        const quizDateData = await quizDateResponse.json();
+
+        setCurrentReleaseDay(Number(releaseData.value) || 0);
+        setDailyQuizStartDate(quizDateData.value || '2026-07-14');
       } catch (err) {
         setError(err.message);
       }
     };
 
-    if (isAdmin) fetchCurrentDay();
+    if (isAdmin) fetchSettings();
   }, [isAdmin]);
 
   // Handle day button click
@@ -37,6 +49,7 @@ export default function SettingsScreen() {
 
     setIsUpdating(true);
     setError(null);
+    setSuccessMessage(null);
 
     try {
       // Update release day on server
@@ -69,6 +82,36 @@ export default function SettingsScreen() {
     }
   };
 
+  const handleQuizDateSave = async () => {
+    if (!user?.token || isUpdatingQuizDate) return;
+
+    setIsUpdatingQuizDate(true);
+    setError(null);
+    setSuccessMessage(null);
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/config/daily-quiz-start-date`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({ value: dailyQuizStartDate }),
+      });
+
+      if (!response.ok) {
+        const errData = await response.json();
+        throw new Error(errData.message || 'Failed to update daily quiz start date');
+      }
+
+      setSuccessMessage('Daily quiz start date updated.');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsUpdatingQuizDate(false);
+    }
+  };
+
   if (!isAdmin) {
     return <UnderDevelopment section="Settings" />;
   }
@@ -89,6 +132,7 @@ export default function SettingsScreen() {
           <p>{getDayLabel(currentReleaseDay)}</p>
           <p>{totalUnlocked} routes currently unlocked</p>
           {error && <p className="error-message">{error}</p>}
+          {successMessage && <p className="success-message">{successMessage}</p>}
         </div>
 
         <div className="days__btn">
@@ -107,6 +151,30 @@ export default function SettingsScreen() {
               </button>
             );
           })}
+        </div>
+      </div>
+
+      <div className="content__release" style={{ marginTop: '24px' }}>
+        <div className="release__header">
+          <p>Daily Quiz Start Date</p>
+          <p>Choose the first day that the quiz series should begin.</p>
+        </div>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center' }}>
+          <input
+            type="date"
+            value={dailyQuizStartDate}
+            onChange={(event) => setDailyQuizStartDate(event.target.value)}
+            disabled={isUpdatingQuizDate}
+            style={{ padding: '10px 12px', borderRadius: '8px', border: '1px solid #d5d7db' }}
+          />
+          <button
+            onClick={handleQuizDateSave}
+            disabled={isUpdatingQuizDate}
+            style={{ padding: '10px 14px', borderRadius: '8px', border: 'none', background: '#4f46e5', color: '#fff', cursor: 'pointer' }}
+          >
+            {isUpdatingQuizDate ? 'Saving...' : 'Save Date'}
+          </button>
         </div>
       </div>
     </div>
