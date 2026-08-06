@@ -18,6 +18,7 @@ const capitalizeUser = (u) => {
     firstName: capitalizeFirst(u.firstName),
     lastName: capitalizeFirst(u.lastName),
     // Course access flags from backend
+    cohort: u.cohort || null,
     htmlAccess: Boolean(u.htmlAccess),
     jsAccess: Boolean(u.jsAccess),
     reactAccess: Boolean(u.reactAccess),
@@ -76,7 +77,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (firstName, lastName, username, email, password, role) => {
+  const register = async (firstName, lastName, username, email, password, role, cohort) => {
     setIsLoading(true);
     setError(null);
     try {
@@ -88,7 +89,7 @@ export const AuthProvider = ({ children }) => {
 
       await axios.post(
         `${API_URL}/register`,
-        { firstName, lastName, username, email, password, role }, 
+        { firstName, lastName, username, email, password, role, cohort }, 
         config
       );
 
@@ -120,6 +121,39 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     // You might also want to redirect the user here
   };
+
+  const refreshProfile = async () => {
+    if (!user || !user.token) {
+      throw new Error('Not authenticated');
+    }
+
+    setIsLoading(true);
+    setError(null);
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+
+      const { data } = await axios.get(`${API_URL}/profile`, config);
+
+      // Preserve token when updating user object
+      const merged = { ...data, token: user.token };
+      const formatted = capitalizeUser(merged);
+      setUser(formatted);
+      localStorage.setItem('userInfo', JSON.stringify(formatted));
+      setIsLoading(false);
+      return formatted;
+    } catch (err) {
+      const errorMessage = err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message;
+      setError(errorMessage);
+      setIsLoading(false);
+      throw new Error(errorMessage);
+    }
+  };
   
   // --- Context Value ---
   const value = {
@@ -129,6 +163,7 @@ export const AuthProvider = ({ children }) => {
     clearError,
     login,
     register,
+    refreshProfile,
     logout,
     isAuthenticated: !!user,
   };

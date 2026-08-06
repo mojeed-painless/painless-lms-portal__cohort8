@@ -188,7 +188,10 @@ const DashboardScreen = () => {
 
             <div className="greetings__text">
               <h2 className="section-title">Welcome back, {user.firstName} 👋</h2>
-              <p>{user.role}</p>
+              <p>
+                {user.role} <span className="user-cohort">{user.cohort.replace(/cohort-?/i, 'cohort ')}</span>
+              </p>
+              
 
               {/* <h2 className="section-title">Welcome back, Mojeed 👋</h2>
               <p>student</p> */}

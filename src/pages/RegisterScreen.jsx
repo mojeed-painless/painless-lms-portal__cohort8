@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { FcGoogle } from "react-icons/fc";
+import { TbLockPassword } from "react-icons/tb";
+import { FaEye } from "react-icons/fa6";
+import { FaEyeSlash } from "react-icons/fa6";
 import pcalogo from '../assets/pcalogo.png';
 import codeIllustration from '../assets/code-illustration.png';
 
@@ -12,7 +15,10 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [role, setRole] = useState('student');
+  const [cohort, setCohort] = useState('');
   const [message, setMessage] = useState(null);
   const [success, setSuccess] = useState(null);
   const [displayError, setDisplayError] = useState('');
@@ -64,7 +70,7 @@ const RegisterScreen = () => {
     }
 
     try {
-      await register(firstName, lastName, username, email, password, role);
+      await register(firstName, lastName, username, email, password, role, cohort);
 
       setSuccess('Registration successful! Please wait while your account status is being approved by an admin.');
 
@@ -75,6 +81,7 @@ const RegisterScreen = () => {
       setPassword('');
       setConfirmPassword('');
       setRole('student');
+      setCohort('');
 
       setTimeout(() => {
           navigate('/login'); 
@@ -188,10 +195,25 @@ const RegisterScreen = () => {
             </div>
 
             <div>
+              <label htmlFor="cohort" className="auth-label">Cohort</label>
+              <select
+                id="cohort"
+                value={cohort}
+                onChange={(e) => setCohort(e.target.value)}
+                className="auth-select"
+              >
+                <option value="">Select a cohort</option>
+                <option value="cohort-1">Cohort 9</option>
+              </select>
+            </div>
+
+            <div>
               <label htmlFor="password">Password</label>
+              <span className='input-icon'><TbLockPassword /></span>
+              <span className='eye-icon' onClick={() => setShowPassword(prev => !prev)}>{showPassword ? <FaEyeSlash /> : <FaEye />}</span>
               <input
                 id="password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 required
                 placeholder="Password"
                 value={password}
@@ -201,9 +223,11 @@ const RegisterScreen = () => {
           
             <div>
               <label htmlFor="confirmPassword">Confirm Password</label>
+              <span className='input-icon'><TbLockPassword /></span>
+              <span className='eye-icon' onClick={() => setShowConfirmPassword(prev => !prev)}>{showConfirmPassword ? <FaEyeSlash /> : <FaEye />}</span>
               <input
                 id="confirmPassword"
-                type="password"
+                type={showConfirmPassword ? 'text' : 'password'}
                 required
                 placeholder="Confirm Password"
                 value={confirmPassword}

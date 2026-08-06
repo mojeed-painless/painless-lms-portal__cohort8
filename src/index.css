@@ -172,7 +172,7 @@ button {
     left: unset;
 }
 
-#identifier, #password {
+#identifier, #password, #confirmPassword {
     padding-left: 2.5rem;
 }
 

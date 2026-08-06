@@ -30,6 +30,14 @@
     margin-bottom: 0;
 }
 
+.user-cohort {
+    background: radial-gradient(#280a48, #20043d);
+    color: #fff;
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.3rem;
+    font-size: 0.8rem;
+}
+
 
 .dashboard__stats {
     display: grid;
