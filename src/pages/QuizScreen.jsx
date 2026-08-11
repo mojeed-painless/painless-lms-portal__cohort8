@@ -159,7 +159,12 @@ export default function QuizScreen() {
         const headers = {};
         if (user && user.token) headers['Authorization'] = `Bearer ${user.token}`;
 
-        const res = await fetch(`${API_BASE_URL}/api/quiz-attempts/session?date=${iso}`, { headers });
+        const selectedCohort = user?.role === 'admin'
+          ? (typeof window !== 'undefined' ? localStorage.getItem('selectedCohort') : null)
+          : user?.cohort || null;
+        const cohortQuery = selectedCohort ? `&cohort=${encodeURIComponent(selectedCohort)}` : '';
+
+        const res = await fetch(`${API_BASE_URL}/api/quiz-attempts/session?date=${iso}${cohortQuery}`, { headers });
         const data = await res.json().catch(() => null);
         // If server returned a session use it, otherwise fall back to a client-default session at 20:30 local time
         let session = data && data.session ? data.session : null;
@@ -220,7 +225,12 @@ export default function QuizScreen() {
 
     const fetchQuizStartDate = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/config/daily-quiz-start-date`);
+        const selectedCohort = user?.role === 'admin'
+          ? (typeof window !== 'undefined' ? localStorage.getItem('selectedCohort') : null)
+          : user?.cohort || null;
+        const cohortQuery = selectedCohort ? `?cohort=${encodeURIComponent(selectedCohort)}` : '';
+
+        const response = await fetch(`${API_BASE_URL}/api/config/daily-quiz-start-date${cohortQuery}`);
         if (!response.ok) throw new Error('Failed to fetch daily quiz start date');
         const data = await response.json();
         if (isMounted) {
@@ -286,7 +296,7 @@ export default function QuizScreen() {
           yesterday.setDate(yesterday.getDate() - 1);
           const yesterdayIso = yesterday.toISOString().slice(0, 10);
           
-          const yesterdayRes = await fetch(`${API_BASE_URL}/api/quiz-attempts/leaderboard/daily?date=${yesterdayIso}`, { headers });
+          const yesterdayRes = await fetch(`${API_BASE_URL}/api/quiz-attempts/leaderboard/daily?date=${yesterdayIso}${cohortQuery}`, { headers });
           const yesterdayData = await yesterdayRes.json();
           
           if (yesterdayData.top && yesterdayData.top.length > 0) {

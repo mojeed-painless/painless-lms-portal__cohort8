@@ -30,7 +30,11 @@ const CourseAccessRoute = ({ courseType }) => {
   useEffect(() => {
     const fetchReleaseDay = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/config/html-release-day`);
+        const selectedCohort = user?.role === 'admin'
+          ? (typeof window !== 'undefined' ? localStorage.getItem('selectedCohort') : null)
+          : user?.cohort || null;
+        const cohortQuery = selectedCohort ? `?cohort=${encodeURIComponent(selectedCohort)}` : '';
+        const response = await fetch(`${API_BASE_URL}/api/config/html-release-day${cohortQuery}`);
         if (!response.ok) throw new Error('Failed to fetch release day');
         const data = await response.json();
         setReleaseDay(Number(data.value) || 0);
@@ -43,7 +47,7 @@ const CourseAccessRoute = ({ courseType }) => {
     };
 
     fetchReleaseDay();
-  }, []);
+  }, [user]);
 
   // Show loading while auth or release day is loading
   if (isLoading || isReleaseLoading) {

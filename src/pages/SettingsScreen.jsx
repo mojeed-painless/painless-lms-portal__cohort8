@@ -22,9 +22,11 @@ export default function SettingsScreen() {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
+        const selectedCohort = typeof window !== 'undefined' ? localStorage.getItem('selectedCohort') : null;
+        const cohortQuery = selectedCohort ? `?cohort=${encodeURIComponent(selectedCohort)}` : '';
         const [releaseResponse, quizDateResponse] = await Promise.all([
-          fetch(`${API_BASE_URL}/api/config/html-release-day`),
-          fetch(`${API_BASE_URL}/api/config/daily-quiz-start-date`),
+          fetch(`${API_BASE_URL}/api/config/html-release-day${cohortQuery}`),
+          fetch(`${API_BASE_URL}/api/config/daily-quiz-start-date${cohortQuery}`),
         ]);
 
         if (!releaseResponse.ok) throw new Error('Failed to fetch release day');
@@ -53,7 +55,9 @@ export default function SettingsScreen() {
 
     try {
       // Update release day on server
-      const response = await fetch(`${API_BASE_URL}/api/config/html-release-day`, {
+      const selectedCohort = typeof window !== 'undefined' ? localStorage.getItem('selectedCohort') : null;
+      const cohortQuery = selectedCohort ? `?cohort=${encodeURIComponent(selectedCohort)}` : '';
+      const response = await fetch(`${API_BASE_URL}/api/config/html-release-day${cohortQuery}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +94,10 @@ export default function SettingsScreen() {
     setSuccessMessage(null);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/config/daily-quiz-start-date`, {
+      const selectedCohort = typeof window !== 'undefined' ? localStorage.getItem('selectedCohort') : null;
+      const cohortQuery = selectedCohort ? `?cohort=${encodeURIComponent(selectedCohort)}` : '';
+
+      const response = await fetch(`${API_BASE_URL}/api/config/daily-quiz-start-date${cohortQuery}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

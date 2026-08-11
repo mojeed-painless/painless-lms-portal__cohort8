@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext.jsx';
 import '../assets/styles/leaderboard.css';
+import { useAssignments } from '../hooks/useAssignments.js';
 import { TbHexagonNumber1Filled, TbHexagonNumber2Filled, TbHexagonNumber3Filled } from "react-icons/tb";
 import {
   Sparkles,
@@ -19,6 +20,7 @@ export default function LeaderboardScreen() {
   const [authRequired, setAuthRequired] = useState(false);
   const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
   const { user } = useAuth();
+
 
   useEffect(() => {
     let mounted = true;
@@ -70,10 +72,26 @@ export default function LeaderboardScreen() {
         }
 
         const users = Array.isArray(data) ? data : (data.users || []);
-        // Prefer server-provided overall; compute a safe default otherwise
-        const mapped = users.map(u => ({ ...u, overall: Math.round(u.overall || u.overallGrade || 0) }));
+        const mapped = users.map(u => {
+          const assignmentAverage = Number(u.assignmentAverage ?? 0);
+          const quizAverage = Number(u.quizAverage ?? 0);
+          const serverOverall = Number.isFinite(Number(u.overall)) ? Number(u.overall) : null;
+
+          const overall = 
+            assignmentAverage > 0 && quizAverage > 0
+              ? Math.round((assignmentAverage + quizAverage) / 2)
+              : assignmentAverage > 0
+                ? Math.round(assignmentAverage)
+                : quizAverage > 0
+                  ? Math.round(quizAverage)
+                  : 0
+          ;
+
+          return { ...u, overall };
+        });
         mapped.sort((a, b) => (b.overall || 0) - (a.overall || 0));
         if (mounted) setLeaders(mapped);
+        console.log('Loaded leaderboard', mapped);
       } catch (err) {
         console.error('Failed to load leaderboard', err);
       }

@@ -47,49 +47,7 @@ export const useAssignments = (token) => {
       const data = await response.json();
       const studentPendingAssignments = data.assignments || [];
 
-      if (studentPendingAssignments.length > 0) {
-        setPending(studentPendingAssignments);
-        return;
-      }
-
-      const [submittedResponse, gradedResponse] = await Promise.all([
-        fetch(`${API_URL}/api/assignments/student/submitted`, {
-          headers: { Authorization: `Bearer ${token}` },
-        }),
-        fetch(`${API_URL}/api/assignments/student/graded`, {
-          headers: { Authorization: `Bearer ${token}` },
-        }),
-      ]);
-
-      const submittedData = submittedResponse.ok
-        ? await submittedResponse.json()
-        : { assignments: [] };
-      const gradedData = gradedResponse.ok
-        ? await gradedResponse.json()
-        : { assignments: [] };
-
-      const completedAssignmentIds = new Set(
-        [
-          ...(submittedData.assignments || []).map((item) => item.id || item._id),
-          ...(gradedData.assignments || []).map((item) => item.id || item._id),
-        ].filter(Boolean)
-      );
-
-      const fallbackResponse = await fetch(`${API_URL}/api/assignments/admin/all${cohortQuery}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      if (!fallbackResponse.ok) {
-        setPending([]);
-        return;
-      }
-
-      const fallbackData = await fallbackResponse.json();
-      const allAssignmentsForStudent = (fallbackData.assignments || []).filter(
-        (assignment) => !completedAssignmentIds.has(assignment.id || assignment._id)
-      );
-
-      setPending(allAssignmentsForStudent);
+      setPending(studentPendingAssignments);
     } catch (err) {
       handleError(err);
       setPending([]);
