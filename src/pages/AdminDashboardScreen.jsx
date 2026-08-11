@@ -334,7 +334,7 @@ const handleDeleteUser = async (userId) => {
             <thead>
               <tr>
                 <th>User</th>
-                <th>Role</th>
+                <th>Username</th>
                 <th>Registered</th>
                 <th>HTML</th>
                 <th>Advanced JavaScript</th>
@@ -347,14 +347,14 @@ const handleDeleteUser = async (userId) => {
                 <tr key={userItem._id}>
                   <td>
                     <div className="table-user">
-                      <div className="user-avatar small">MS</div>
+                      <div className="user-avatar small">{userItem.firstName.charAt(0)}{userItem.lastName.charAt(0)}</div>
                       <div>
                         <strong>{userItem.firstName} {userItem.lastName}</strong>
                         <small>{userItem.email}</small>
                       </div>
                     </div>
                   </td>
-                  <td><small>{userItem.role}</small></td>
+                  <td><small>{userItem.username}</small></td>
                   <td><small>Jan 10, 2024</small></td>
                   <td>
                     <button 
