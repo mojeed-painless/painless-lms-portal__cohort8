@@ -12,6 +12,8 @@ import HomeScreen from './pages/HomeScreen';
 import LoginScreen from './pages/LoginScreen'; 
 import RegisterScreen from './pages/RegisterScreen';
 import RoleBasedDashboard from './components/common/RoleBasedDashboard';
+import CohortScreen from './pages/CohortScreen';
+import AdminDashboardScreen from './pages/AdminDashboardScreen';
 import NotFoundScreen from './pages/NotFoundScreen';
 import NoAccess from './pages/NoAccess';
 
@@ -166,6 +168,8 @@ function App() {
 
             <Route element={<MainLayout />}>
               <Route index element={<RoleBasedDashboard />} />
+              <Route path="/cohorts" element={<CohortScreen />} />
+              <Route path="/admin" element={<AdminDashboardScreen />} />
               <Route path="/content" element={<CourseContentScreen />} />
               <Route path="/assignments" element={<AssignmentScreen />} />
               <Route path="/checkpoints" element={<Checkpoints />} />

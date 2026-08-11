@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../assets/styles/admin.css'; 
 import { adminStats } from '../data.js';
@@ -10,7 +11,7 @@ import {
     Clock,
 } from 'lucide-react'
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5173';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || API_BASE_URL || 'http://localhost:5000';
 const API_URL = `${API_BASE}/api/users/admin`;
 
 
@@ -22,6 +23,16 @@ const AdminDashboardScreen = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [courseAccess, setCourseAccess] = useState({});
+    const [cohorts, setCohorts] = useState([]);
+    const [pendingCohorts, setPendingCohorts] = useState({});
+    const [selectedCohort, setSelectedCohort] = useState(() => {
+      try {
+        return localStorage.getItem('selectedCohort') || '';
+      } catch (e) {
+        return '';
+      }
+    });
+    const navigate = useNavigate();
 
 
     const config = {
@@ -29,18 +40,28 @@ const AdminDashboardScreen = () => {
             Authorization: `Bearer ${user.token}`,
         },
     };
+
+    const fetchCohorts = async () => {
+      try {
+        const { data } = await axios.get(`${API_BASE}/api/users/admin/cohorts`, config);
+        setCohorts(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error('Error fetching cohorts:', err);
+      }
+    };
             
-    // --- Data Fetching ---
-  const fetchUsers = async () => {
+  const fetchUsers = async (cohort = selectedCohort) => {
     if (!user || user.role !== 'admin') return;
     setLoading(true);
     try {
+      const cohortQuery = cohort ? `?cohort=${encodeURIComponent(cohort)}` : '';
+
       // 1. Fetch Pending Users
-      const { data: pendingData } = await axios.get(`${API_URL}/pending`, config);
+      const { data: pendingData } = await axios.get(`${API_URL}/pending${cohortQuery}`, config);
       setPendingUsers(Array.isArray(pendingData) ? pendingData : []);
 
       // 2. Fetch ALL Users
-      const { data: allData } = await axios.get(`${API_URL}/all`, config);
+      const { data: allData } = await axios.get(`${API_URL}/all${cohortQuery}`, config);
       
       // Filter 'all' data to include only approved users (and exclude the logged-in admin)
       const approvedUsers = Array.isArray(allData) 
@@ -68,18 +89,26 @@ const AdminDashboardScreen = () => {
   };
 
     // --- Action Handler: Approve/Reject/Change Role ---
-  const handleUpdateUser = async (userId, isApproved, newRole) => {
+  const handleUpdateUser = async (userId, isApproved, newRole, userCohort) => {
     setLoading(true);
     try {
       const body = { isApproved };
       if (newRole) {
         body.role = newRole;
       }
+      if (userCohort) {
+        body.cohort = userCohort;
+      }
       
       await axios.put(`${API_URL}/${userId}`, body, config);
       
       // Refresh both lists after update (user moves from pending to all)
-      fetchUsers();
+      fetchUsers(selectedCohort);
+      setPendingCohorts(prev => {
+        const updated = { ...prev };
+        delete updated[userId];
+        return updated;
+      });
       
     } catch (err) {
       console.error('Error updating user status:', err);
@@ -89,11 +118,18 @@ const AdminDashboardScreen = () => {
     }
   };
 
-   useEffect(() => {
+  useEffect(() => {
     if (user && user.role === 'admin') {
-      fetchUsers();
+      fetchCohorts();
+      if (!selectedCohort) {
+        navigate('/cohorts', { replace: true });
+        return;
+      }
+      if (selectedCohort) {
+        fetchUsers(selectedCohort);
+      }
     }
-  }, [user]);
+  }, [user, selectedCohort, navigate]);
 
 const handleDeleteUser = async (userId) => {
     // IMPORTANT: Replacing window.confirm() with a custom modal is required in production environments.
@@ -107,7 +143,7 @@ const handleDeleteUser = async (userId) => {
         await axios.delete(`${API_URL}/${userId}`, config);
         
         // Refresh the list immediately to remove the deleted user from the UI
-        fetchUsers(); 
+        fetchUsers(selectedCohort); 
         
     } catch (err) {
         console.error('Error deleting user:', err);
@@ -153,7 +189,8 @@ const handleDeleteUser = async (userId) => {
         
         // Silently refresh the user data to sync with backend (no loading state)
         try {
-          const { data: allData } = await axios.get(`${API_URL}/all`, config);
+          const cohortQuery = selectedCohort ? `?cohort=${encodeURIComponent(selectedCohort)}` : '';
+          const { data: allData } = await axios.get(`${API_URL}/all${cohortQuery}`, config);
           const approvedUsers = Array.isArray(allData) 
             ? allData.filter(u => u.isApproved && u._id !== user._id)
             : [];
@@ -191,6 +228,10 @@ const handleDeleteUser = async (userId) => {
         );
     }
 
+    if (!selectedCohort) {
+      return null;
+    }
+
     const totalUsers = allUsers.length + pendingUsers.length;
     const PendingStudents = pendingUsers.length;
     const ApprovedStudents = allUsers.length;
@@ -199,6 +240,14 @@ const handleDeleteUser = async (userId) => {
        
 
     <div className="admin-container">
+      <div className="cohort-view-header">
+        <div>
+          <p className="cohort-view-label">Viewing cohort</p>
+          <h2>{selectedCohort.replace(/cohort-?/i, 'Cohort ')}</h2>
+          <p className="cohort-view-subtitle">All data below is filtered to this cohort. To change cohort, please log out and sign in again.</p>
+        </div>
+      </div>
+
       {/* 1. Statistics Cards */}
       <div className="stats-grid">
         {adminStats.map(({title, value, Icon, color}) => (
@@ -245,10 +294,20 @@ const handleDeleteUser = async (userId) => {
                 </div>
                 <div className="action-btns">
                   <button className="btn-reject" onClick={() => handleDeleteUser(userItem._id)}>✕</button>
-                  <button className="btn-approve" onClick={() => handleUpdateUser(userItem._id, true, userItem.role)}>✓</button>
+                  <button className="btn-approve" onClick={() => handleUpdateUser(userItem._id, true, userItem.role, pendingCohorts[userItem._id])}>✓</button>
                 </div>
               </div>
               <div className="card-tags">
+                <select
+                  className="cohort-select"
+                  value={pendingCohorts[userItem._id] || ''}
+                  onChange={(e) => setPendingCohorts(prev => ({ ...prev, [userItem._id]: e.target.value }))}
+                >
+                  <option value="">Select Cohort</option>
+                  {cohorts.map(cohort => (
+                    <option key={cohort} value={cohort}>{cohort}</option>
+                  ))}
+                </select>
                   <span  className={`tag html`}>
                     HTML
                   </span>

@@ -109,6 +109,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem('userInfo');
+    localStorage.removeItem('selectedCohort');
     
     // Clear quiz-related localStorage to prevent cross-user contamination
     const keys = Object.keys(localStorage);

@@ -203,7 +203,7 @@ const RegisterScreen = () => {
                 className="auth-select"
               >
                 <option value="">Select a cohort</option>
-                <option value="cohort-1">Cohort 9</option>
+                <option value="cohort-9">Cohort 9</option>
               </select>
             </div>
 

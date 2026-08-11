@@ -27,12 +27,17 @@ export default function LeaderboardScreen() {
         const headers = { 'Content-Type': 'application/json' };
         if (user && user.token) headers['Authorization'] = `Bearer ${user.token}`;
 
+        const selectedCohort = user?.role === 'admin'
+          ? (typeof window !== 'undefined' ? localStorage.getItem('selectedCohort') : null)
+          : user?.cohort || null;
+        const cohortQuery = selectedCohort ? `?cohort=${encodeURIComponent(selectedCohort)}` : '';
+
         let res;
         let data;
 
         // Admins: try admin-specific aggregated endpoint, fall back to admin/all
         if (user && user.role === 'admin') {
-          res = await fetch(`${API_BASE}/api/users/admin/grades`, { headers });
+          res = await fetch(`${API_BASE}/api/users/admin/grades${cohortQuery}`, { headers });
 
           if (res.status === 401 || res.status === 403) {
             setAuthRequired(true);
@@ -41,7 +46,7 @@ export default function LeaderboardScreen() {
 
           if (!res.ok) {
             console.warn('/admin/grades failed, falling back to /admin/all', res.status);
-            res = await fetch(`${API_BASE}/api/users/admin/all`, { headers });
+            res = await fetch(`${API_BASE}/api/users/admin/all${cohortQuery}`, { headers });
           }
 
           if (res.status === 401 || res.status === 403) {
@@ -53,7 +58,7 @@ export default function LeaderboardScreen() {
           data = await res.json();
         } else {
           // Non-admin (students): call the authenticated grades endpoint
-          res = await fetch(`${API_BASE}/api/users/grades`, { headers });
+          res = await fetch(`${API_BASE}/api/users/grades${cohortQuery}`, { headers });
 
           if (res.status === 401 || res.status === 403) {
             setAuthRequired(true);
@@ -86,8 +91,12 @@ export default function LeaderboardScreen() {
       try {
         const headers = { 'Content-Type': 'application/json' };
         if (user && user.token) headers['Authorization'] = `Bearer ${user.token}`;
+        const selectedCohort = user?.role === 'admin'
+          ? (typeof window !== 'undefined' ? localStorage.getItem('selectedCohort') : null)
+          : user?.cohort || null;
+        const cohortQuery = selectedCohort ? `?cohort=${encodeURIComponent(selectedCohort)}` : '';
 
-        const res = await fetch(`${API_BASE}/api/quiz-attempts/leaderboard/daily/aggregate`, { headers });
+        const res = await fetch(`${API_BASE}/api/quiz-attempts/leaderboard/daily/aggregate${cohortQuery}`, { headers });
 
         if (!res.ok) {
           console.warn('Failed to fetch daily quiz leaderboard:', res.status);
@@ -152,7 +161,7 @@ export default function LeaderboardScreen() {
 
                 <div className="top__leaders-list">
                   {leaders.slice(0, 3).map((u, idx) => (
-                    <div key={u._id || u.id || idx} className="top__leaders-item">
+                    <div key={`${String(u._id || u.id || idx)}-${idx}`} className="top__leaders-item">
                       <span className="top__leaders-rank">
                         {idx === 0 ? <TbHexagonNumber1Filled/> : (idx === 1 ? <TbHexagonNumber2Filled/> : <TbHexagonNumber3Filled/>)}
                       </span>
@@ -177,7 +186,7 @@ export default function LeaderboardScreen() {
 
                 <tbody>
                   {leaders.slice(3).map((u, i) => (
-                    <tr key={u._id || u.id || i}>
+                    <tr key={`${String(u._id || u.id || i)}-${i}`}>
                       <td><span>{i + 4}</span></td>
                       <td>{u.firstName ? `${u.firstName} ${u.lastName || ''}`.trim() : (u.name || 'Student')}</td>
                       <td>{u.overall || 0}</td>
@@ -203,7 +212,7 @@ export default function LeaderboardScreen() {
                     <div style={{ padding: 12, color: '#666' }}>No quiz attempts yet.</div>
                   )}
                   {!dailyQuizLoading && dailyQuizLeaders.slice(0, 3).map((leader, idx) => (
-                    <div key={leader.studentId || leader._id || idx} className="top__leaders-item">
+                    <div key={`${String(leader.studentId || leader._id || idx)}-${idx}`} className="top__leaders-item">
                       <span className="top__leaders-rank">
                         {idx === 0 ? <TbHexagonNumber1Filled /> : (idx === 1 ? <TbHexagonNumber2Filled /> : <TbHexagonNumber3Filled />)}
                       </span>
@@ -238,7 +247,7 @@ export default function LeaderboardScreen() {
                     </tr>
                   )}
                   {!dailyQuizLoading && dailyQuizLeaders.slice(3).map((leader, idx) => (
-                    <tr key={leader.studentId || leader._id || idx}>
+                    <tr key={`${String(leader.studentId || leader._id || idx)}-${idx}`}>
                       <td><span>{idx + 4}</span></td>
                       <td>{leader.name || leader.username || 'Student'}</td>
                       <td>{leader.totalPoints || 0}</td>

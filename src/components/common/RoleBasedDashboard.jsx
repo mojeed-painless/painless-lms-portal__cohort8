@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { Navigate } from 'react-router-dom';
 import DashboardScreen from '../../pages/DashboardScreen';
-import AdminDashboardScreen from '../../pages/AdminDashboardScreen';
 
 const RoleBasedDashboard = () => {
   const { user } = useAuth();
@@ -10,7 +11,7 @@ const RoleBasedDashboard = () => {
   }
 
   if (user.role === 'admin') {
-    return <AdminDashboardScreen />;
+    return <Navigate to="/cohorts" replace />;
   }
 
   return <DashboardScreen />;

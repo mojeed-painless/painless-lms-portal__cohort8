@@ -9,6 +9,8 @@ export const useAssignments = (token) => {
   const [error, setError] = useState(null);
 
   const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+  const selectedCohort = typeof window !== 'undefined' ? localStorage.getItem('selectedCohort') : null;
+  const cohortQuery = selectedCohort ? `?cohort=${encodeURIComponent(selectedCohort)}` : '';
 
   // Helper function to convert courseType to courseId
   const getCourseId = (courseType) => {
@@ -73,7 +75,7 @@ export const useAssignments = (token) => {
         ].filter(Boolean)
       );
 
-      const fallbackResponse = await fetch(`${API_URL}/api/assignments/admin/all`, {
+      const fallbackResponse = await fetch(`${API_URL}/api/assignments/admin/all${cohortQuery}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -185,7 +187,7 @@ export const useAssignments = (token) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${API_URL}/api/assignments/admin/submitted`, {
+      const response = await fetch(`${API_URL}/api/assignments/admin/submitted${cohortQuery}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!response.ok) {
@@ -199,14 +201,14 @@ export const useAssignments = (token) => {
     } finally {
       setLoading(false);
     }
-  }, [API_URL, token]);
+  }, [API_URL, token, cohortQuery]);
 
   const fetchGradedAssignmentsAdmin = useCallback(async () => {
     if (!token) return;
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${API_URL}/api/assignments/admin/graded`, {
+      const response = await fetch(`${API_URL}/api/assignments/admin/graded${cohortQuery}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!response.ok) {
@@ -220,7 +222,7 @@ export const useAssignments = (token) => {
     } finally {
       setLoading(false);
     }
-  }, [API_URL, token]);
+  }, [API_URL, token, cohortQuery]);
 
   const gradeAssignment = useCallback(
     async (studentAssignmentId, score, feedback = '') => {
@@ -319,7 +321,7 @@ export const useAssignments = (token) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${API_URL}/api/assignments/admin/all`, {
+      const response = await fetch(`${API_URL}/api/assignments/admin/all${cohortQuery}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!response.ok) {
@@ -333,12 +335,17 @@ export const useAssignments = (token) => {
     } finally {
       setLoading(false);
     }
-  }, [API_URL, token]);
+  }, [API_URL, token, cohortQuery]);
 
   const createAssignment = useCallback(
     async (title, description, dueDate, courseType) => {
       if (!title.trim()) {
         setError('Assignment title cannot be empty');
+        return false;
+      }
+
+      if (!selectedCohort) {
+        setError('Please select a cohort before creating an assignment.');
         return false;
       }
 
@@ -361,6 +368,7 @@ export const useAssignments = (token) => {
             description,
             dueDate,
             courseId: getCourseId(courseType),
+            cohort: selectedCohort || null,
           }),
         });
 
@@ -379,7 +387,7 @@ export const useAssignments = (token) => {
         setLoading(false);
       }
     },
-    [API_URL, token, fetchAllAssignments]
+    [API_URL, token, fetchAllAssignments, cohortQuery]
   );
 
   const updateAssignment = useCallback(
